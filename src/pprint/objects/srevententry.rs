@@ -1,4 +1,8 @@
-use crate::{pprint::{PPrintable, Printer}, SREventEntry, objects::Obj};
+use crate::{
+    objects::Obj,
+    pprint::{PPrintable, Printer},
+    SREventEntry,
+};
 
 impl PPrintable for SREventEntry {
     fn pprint(&self, printer: &mut Printer) -> std::io::Result<()> {

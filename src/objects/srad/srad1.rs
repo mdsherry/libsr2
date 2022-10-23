@@ -1,4 +1,4 @@
-use crate::{primitives::ItemId, SRSed, simple_obj};
+use crate::{primitives::ItemId, simple_obj, SRSed};
 
 #[derive(Debug, Clone, Default, PartialEq)]
 pub struct SRAD1 {

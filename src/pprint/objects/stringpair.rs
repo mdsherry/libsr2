@@ -1,4 +1,7 @@
-use crate::{pprint::{PPrintable, Printer}, StringPair};
+use crate::{
+    pprint::{PPrintable, Printer},
+    StringPair,
+};
 
 impl PPrintable for StringPair {
     fn pprint(&self, printer: &mut Printer) -> std::io::Result<()> {

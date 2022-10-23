@@ -1,5 +1,5 @@
-use crate::primitives::VecMap;
 use super::simple_obj;
+use crate::primitives::VecMap;
 
 #[derive(Debug, Default, Clone, PartialEq)]
 pub struct SRPU {

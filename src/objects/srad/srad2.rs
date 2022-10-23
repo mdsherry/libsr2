@@ -1,4 +1,7 @@
-use crate::{Srv3, SRSed, primitives::{ItemId, InGameTime, SceneGroupId}, SRRCD, SRSE, simple_obj};
+use crate::{
+    primitives::{InGameTime, ItemId, SceneGroupId},
+    simple_obj, SRSed, Srv3, SRRCD, SRSE,
+};
 
 #[derive(Debug, Clone, Default, PartialEq)]
 pub struct SRAD2 {
@@ -25,5 +28,26 @@ pub struct SRAD2 {
     pub ts5: InGameTime,
     pub srses: Vec<SRSE>,
 }
-simple_obj!(SRAD2, "SRAD", pos, facing, index, unknown, actor_type, srsed, chick_timer, hen_timer, plort_expire, srrcd, ts4, feral, more_bytes,
-zone, statuified, statue_actor_id, even_more_bytes, ts5, srses);
+simple_obj!(
+    SRAD2,
+    "SRAD",
+    pos,
+    facing,
+    index,
+    unknown,
+    actor_type,
+    srsed,
+    chick_timer,
+    hen_timer,
+    plort_expire,
+    srrcd,
+    ts4,
+    feral,
+    more_bytes,
+    zone,
+    statuified,
+    statue_actor_id,
+    even_more_bytes,
+    ts5,
+    srses
+);

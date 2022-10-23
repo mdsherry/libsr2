@@ -19,7 +19,8 @@ impl PPrintable for SRPL {
 
             p.field("Gadgets unlocked")?.value(&self.gadgets_unlocked)?;
 
-            p.field("Refinery contents")?.value(&self.refinery_contents)?;
+            p.field("Refinery contents")?
+                .value(&self.refinery_contents)?;
             p.field("Upgrade components")?
                 .value(&self.upgrade_components)?;
             p.field("Inventory")?.value(&self.inventory)?;

@@ -1,6 +1,5 @@
-use crate::primitives::InGameTime;
 use super::simple_obj;
-
+use crate::primitives::InGameTime;
 
 #[derive(Debug, Default, Clone, PartialEq)]
 pub struct SRRCD {

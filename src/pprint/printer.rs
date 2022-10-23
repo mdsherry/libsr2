@@ -1,9 +1,12 @@
-use std::{path::Path, fs::File, io::{BufWriter, self}};
+use std::{
+    fs::File,
+    io::{self, BufWriter},
+    path::Path,
+};
 
 use crate::SRGame;
 
 use super::PPrintable;
-
 
 pub struct Printer<'a> {
     margin: usize,
@@ -48,7 +51,7 @@ impl<'a> Printer<'a> {
         self.out.write_all(text.as_bytes())?;
         Ok(())
     }
-    
+
     pub fn nl(&mut self) -> io::Result<()> {
         if !self.new_line {
             writeln!(self.out)?;
@@ -56,7 +59,11 @@ impl<'a> Printer<'a> {
         }
         Ok(())
     }
-    pub fn list<P, F: FnMut(&mut Self, &P) -> io::Result<()>>(&mut self, items: &[P], mut f: F) -> io::Result<()> {
+    pub fn list<P, F: FnMut(&mut Self, &P) -> io::Result<()>>(
+        &mut self,
+        items: &[P],
+        mut f: F,
+    ) -> io::Result<()> {
         if items.is_empty() {
             self.print("<empty>")?;
         } else {
@@ -137,8 +144,6 @@ impl<'a> Printer<'a> {
         Ok(())
     }
 }
-
-
 
 fn width(n: usize) -> u32 {
     if n >= 10000000 {

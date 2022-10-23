@@ -1,9 +1,9 @@
 mod objects;
-mod primitives;
-mod pprint;
-mod util;
 mod parsers;
+mod pprint;
+mod primitives;
+mod util;
 
 pub use objects::*;
 pub use parsers::Parseable;
-pub use pprint::{Printer, PPrintable};
+pub use pprint::{PPrintable, Printer};

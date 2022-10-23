@@ -2,7 +2,10 @@ use std::io::Write;
 
 use nom::IResult;
 
-use crate::{primitives::{InGameTime, TimeSinceYear1, VecMap, SceneGroupId, ItemId, WindowsTime, PlantId}, util::s2a};
+use crate::{
+    primitives::{InGameTime, ItemId, PlantId, SceneGroupId, TimeSinceYear1, VecMap, WindowsTime},
+    util::s2a,
+};
 
 use super::Parseable;
 
@@ -27,7 +30,6 @@ impl Parseable for TimeSinceYear1 {
         self.0.write(f)
     }
 }
-
 
 impl Parseable for WindowsTime {
     fn parse(input: &[u8]) -> IResult<&[u8], Self> {
@@ -154,7 +156,10 @@ impl Parseable for f32 {
 }
 
 // This only shows up the once (that I'm aware of), but should make the code a lot cleaner
-impl<T> Parseable for Option<T> where T: Parseable {
+impl<T> Parseable for Option<T>
+where
+    T: Parseable,
+{
     fn parse(input: &[u8]) -> IResult<&[u8], Self> {
         let (input, has_value) = bool::parse(input)?;
         if has_value {
@@ -205,7 +210,7 @@ macro_rules! parse_newtype {
                 let (input, value) = <$file_type as Parseable>::parse(input)?;
                 Ok((input, Self(value as _)))
             }
-        
+
             fn write<W: Write>(&self, f: &mut W) -> std::io::Result<()> {
                 let value = self.0 as i32;
                 value.write(f)

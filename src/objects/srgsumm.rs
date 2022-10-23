@@ -1,5 +1,5 @@
-use crate::primitives::{InGameTime, TimeSinceYear1};
 use super::simple_obj;
+use crate::primitives::{InGameTime, TimeSinceYear1};
 
 #[derive(Debug, Clone, Default, PartialEq)]
 pub struct SRGSUMM {

@@ -1,7 +1,9 @@
-use crate::{primitives::{ItemId, SceneGroupId}, Srv3};
+use crate::{
+    primitives::{ItemId, SceneGroupId},
+    Srv3,
+};
 
 use super::simple_obj;
-
 
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct SRPG {

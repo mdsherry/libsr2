@@ -1,5 +1,5 @@
-use super::{simple_obj};
-use std::{fmt::Debug};
+use super::simple_obj;
+use std::fmt::Debug;
 
 #[derive(Debug, Default, Clone, PartialEq)]
 pub struct SRSGI {

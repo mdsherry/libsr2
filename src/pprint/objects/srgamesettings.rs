@@ -1,4 +1,8 @@
-use crate::{pprint::{PPrintable, Printer}, SRGameSettings, objects::Obj};
+use crate::{
+    objects::Obj,
+    pprint::{PPrintable, Printer},
+    SRGameSettings,
+};
 
 impl PPrintable for SRGameSettings {
     fn pprint(&self, printer: &mut Printer) -> std::io::Result<()> {

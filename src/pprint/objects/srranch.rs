@@ -1,4 +1,7 @@
-use crate::{pprint::{PPrintable, Printer}, SRRANCH};
+use crate::{
+    pprint::{PPrintable, Printer},
+    SRRANCH,
+};
 
 impl PPrintable for SRRANCH {
     fn pprint(&self, printer: &mut Printer) -> std::io::Result<()> {

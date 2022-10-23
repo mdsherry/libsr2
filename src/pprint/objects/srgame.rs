@@ -1,4 +1,8 @@
-use crate::{pprint::{PPrintable, Printer}, SRGame, objects::Obj};
+use crate::{
+    objects::Obj,
+    pprint::{PPrintable, Printer},
+    SRGame,
+};
 
 impl PPrintable for SRGame {
     fn pprint(&self, printer: &mut Printer) -> std::io::Result<()> {
@@ -13,7 +17,8 @@ impl PPrintable for SRGame {
             p.field("Game icon index")?.value(&self.game_icon_index)?;
             p.field("Zone index")?.value(&self.zone_index)?;
             p.field("Build date")?.value(&self.build_date)?;
-            p.field("Scene group index")?.value(&self.scene_group_index)?;
+            p.field("Scene group index")?
+                .value(&self.scene_group_index)?;
             p.field("Secret style discs")?
                 .value(&self.secret_style_discs)?;
             p.field("Event record")?.value(&self.event_record)?;
@@ -21,7 +26,8 @@ impl PPrintable for SRGame {
             p.field("srse index")?.value(&self.srse_index)?;
 
             p.ufield("ped")?.value(&self.ped)?;
-            p.field("Saved game summary")?.value(&self.save_game_summary)?;
+            p.field("Saved game summary")?
+                .value(&self.save_game_summary)?;
             p.ufield("str1")?.value(&self.str1)?;
             p.ufield("bytes1")?.value(&self.bytes1)?;
             p.ufield("unknown1")?.value(&self.unknown1)?;
@@ -29,9 +35,7 @@ impl PPrintable for SRGame {
             p.ufield("app")?.value(&self.app)?;
             if p.compare_mode() {
                 let mut srads: Vec<_> = self.srads.clone();
-                srads.sort_unstable_by_key(|srad| {
-                    srad.as_v2().map(|s| s.index).unwrap_or(-1)
-                });
+                srads.sort_unstable_by_key(|srad| srad.as_v2().map(|s| s.index).unwrap_or(-1));
                 p.field("Actors")?.value(&srads)
             } else {
                 p.field("Actors")?.value(&self.srads)

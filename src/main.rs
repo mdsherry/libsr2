@@ -1,9 +1,19 @@
 #[allow(unused_imports)]
-use std::{collections::HashMap, path::{PathBuf, Path}, fs::File, io::BufWriter};
+use std::{
+    collections::HashMap,
+    fs::File,
+    io::BufWriter,
+    path::{Path, PathBuf},
+};
 
 use clap::Parser;
 #[allow(unused_imports)]
-use kiss3d::{window::{Window, State}, light::Light, nalgebra::{UnitQuaternion, Vector3}, scene::SceneNode};
+use kiss3d::{
+    light::Light,
+    nalgebra::{UnitQuaternion, Vector3},
+    scene::SceneNode,
+    window::{State, Window},
+};
 use libsr2::{PPrintable, Parseable, Printer, SRGame};
 
 #[derive(Debug, Clone, Parser)]
@@ -15,30 +25,30 @@ struct Args {
 
 fn load_data(path: &Path) -> color_eyre::eyre::Result<SRGame> {
     let data = std::fs::read(path)?;
-    
+
     let (_, game) = SRGame::parse(&data)
         .map_err(|e| match e {
             nom::Err::Incomplete(_) => todo!(),
             nom::Err::Error(e) | nom::Err::Failure(e) => {
-                    eprintln!("Error code: {:?}", e.code);
-                        eprintln!("Error location: {:x}", data.len() - e.input.len());
-                            let s: String = e
-                        .input
-                        .iter()
-                        .take(30)
-                        .map(|b| {
-                            if b.is_ascii_graphic() || *b == 0x20 {
-                                *b as char
-                            } else {
-                                '★'
-                            }
-                        })
-                        .collect();
-                    eprintln!("Output: {s}");
-                }
-            })
-            .unwrap();
-            Ok(game)
+                eprintln!("Error code: {:?}", e.code);
+                eprintln!("Error location: {:x}", data.len() - e.input.len());
+                let s: String = e
+                    .input
+                    .iter()
+                    .take(30)
+                    .map(|b| {
+                        if b.is_ascii_graphic() || *b == 0x20 {
+                            *b as char
+                        } else {
+                            '★'
+                        }
+                    })
+                    .collect();
+                eprintln!("Output: {s}");
+            }
+        })
+        .unwrap();
+    Ok(game)
 }
 
 fn main() -> color_eyre::eyre::Result<()> {
@@ -46,7 +56,9 @@ fn main() -> color_eyre::eyre::Result<()> {
     let args = Args::parse();
     let game = load_data(&args.filename)?;
     let outfile_name_base: Option<&Path> = args.filename.file_stem().map(|p| p.as_ref());
-    let outfile_name = outfile_name_base.unwrap_or("save".as_ref()).with_extension("txt");
+    let outfile_name = outfile_name_base
+        .unwrap_or("save".as_ref())
+        .with_extension("txt");
     let mut printer = Printer::new(&game).with_filename(&outfile_name)?;
     printer.set_compare_mode(args.comparison);
     game.pprint(&mut printer)?;
@@ -98,8 +110,7 @@ fn main() -> color_eyre::eyre::Result<()> {
     //             c.set_color(1., 0., 0.);
     //         }
     //     }
-       
-  
+
     // }
     // let mut tracked = vec![];
     // for plot in &game.ranch.plots {

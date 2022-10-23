@@ -1,4 +1,8 @@
-use crate::{pprint::{PPrintable, Printer}, SRGSUMM, objects::Obj};
+use crate::{
+    objects::Obj,
+    pprint::{PPrintable, Printer},
+    SRGSUMM,
+};
 
 impl PPrintable for SRGSUMM {
     fn pprint(&self, printer: &mut Printer) -> std::io::Result<()> {

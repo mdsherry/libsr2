@@ -1,6 +1,6 @@
 use super::{
-    simple_obj,SRAPP, SREventRecord, SRGameIconIndex, SRGameSettings, SRGSUMM, SRPL,
-    SRSecretStyleDisc, SRSEI, SRZoneIndex, SRAD, SRITI, SRPED, SRRANCH, Srrgi, SRSGI, Srw, SRUCI,
+    simple_obj, SREventRecord, SRGameIconIndex, SRGameSettings, SRSecretStyleDisc, SRZoneIndex,
+    Srrgi, Srw, SRAD, SRAPP, SRGSUMM, SRITI, SRPED, SRPL, SRRANCH, SRSEI, SRSGI, SRUCI,
 };
 
 #[derive(Debug, Default, Clone, PartialEq)]

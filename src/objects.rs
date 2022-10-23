@@ -1,13 +1,9 @@
 mod macros;
-pub(crate) use macros::*;
-use nom::{IResult, error::ContextError};
 use crate::parsers::Parseable;
+pub(crate) use macros::*;
+use nom::{error::ContextError, IResult};
 
-
-use std::{
-    fmt::{Debug},
-    hash::Hash, io::Write,
-};
+use std::{fmt::Debug, hash::Hash, io::Write};
 pub(crate) trait Obj: Sized {
     const NAME: &'static str;
     const VERSION: i32 = 1;
@@ -58,13 +54,11 @@ where
     }
 }
 
-
 mod srv3;
 pub use srv3::*;
 
 mod srsgi;
 pub use srsgi::*;
-
 
 mod srrw;
 pub use srrw::*;
@@ -162,9 +156,6 @@ pub use srresnode::*;
 
 mod trackedactorlist;
 pub use trackedactorlist::*;
-
-
-
 
 #[repr(u8)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd, Ord)]

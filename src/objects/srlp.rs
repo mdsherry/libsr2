@@ -1,6 +1,6 @@
 use crate::primitives::{InGameTime, PlantId, VecMap};
 
-use super::{simple_obj, SRAD, TrackedActorList};
+use super::{simple_obj, TrackedActorList, SRAD};
 
 // Plot?
 #[derive(Debug, Default, Clone, PartialEq)]

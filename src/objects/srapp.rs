@@ -1,5 +1,5 @@
-use super::{simple_obj};
-use crate::{primitives::{ItemId, VecMap}};
+use super::simple_obj;
+use crate::primitives::{ItemId, VecMap};
 
 #[derive(Debug, Default, Clone, PartialEq)]
 pub struct SRAPP {

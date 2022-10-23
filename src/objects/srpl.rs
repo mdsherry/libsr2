@@ -1,6 +1,6 @@
 use crate::primitives::{ItemId, VecMap};
 
-use super::{simple_obj, SRUpgradeComponents, SRAD, SRDZR, SRPU, Srv3};
+use super::{simple_obj, SRUpgradeComponents, Srv3, SRAD, SRDZR, SRPU};
 
 #[derive(Debug, Default, Clone, PartialEq)]
 pub struct SRPL {

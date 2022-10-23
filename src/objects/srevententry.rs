@@ -1,4 +1,7 @@
-use crate::{primitives::{InGameTime, WindowsTime}, simple_obj};
+use crate::{
+    primitives::{InGameTime, WindowsTime},
+    simple_obj,
+};
 
 #[derive(Debug, Default, Clone, PartialEq)]
 pub struct SREventEntry {

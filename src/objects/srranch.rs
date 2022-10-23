@@ -1,7 +1,9 @@
-use crate::{primitives::{VecMap, InGameTime}, SRLP};
+use crate::{
+    primitives::{InGameTime, VecMap},
+    SRLP,
+};
 
 use super::simple_obj;
-
 
 #[derive(Debug, Default, Clone, PartialEq)]
 pub struct SRRANCH {

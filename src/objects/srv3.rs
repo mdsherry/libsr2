@@ -1,5 +1,5 @@
 use super::Obj;
-use crate::objects::{Parseable};
+use crate::objects::Parseable;
 use nom::IResult;
 use std::{fmt::Debug, io::Write};
 

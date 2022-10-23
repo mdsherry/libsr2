@@ -1,6 +1,5 @@
 use super::simple_obj;
 
-
 #[derive(Debug, Default, Clone, PartialEq)]
 pub struct SRSecretStyleDisc {
     pub a: bool,

@@ -1,4 +1,7 @@
-use crate::{pprint::{PPrintable, Printer}, SRAD, SRAD1, SRAD2};
+use crate::{
+    pprint::{PPrintable, Printer},
+    SRAD, SRAD1, SRAD2,
+};
 
 impl PPrintable for SRAD {
     fn pprint(&self, printer: &mut Printer) -> std::io::Result<()> {
@@ -42,8 +45,8 @@ impl PPrintable for SRAD2 {
             p.ufield("zone")?.value(self.zone)?;
             p.field("Statuified")?.value(self.statuified)?;
             p.field("Statued actor ID")?.value(self.statue_actor_id)?;
-            p.ufield("even_more_bytes")
-                ?.value(self.even_more_bytes.as_slice())?;
+            p.ufield("even_more_bytes")?
+                .value(self.even_more_bytes.as_slice())?;
             p.ufield("ts5")?.value(self.ts5)?;
             p.ufield("srses")?.value(&self.srses)
         })

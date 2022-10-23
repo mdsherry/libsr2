@@ -1,7 +1,7 @@
 mod printer;
 pub use printer::*;
-mod primitives;
 mod objects;
+mod primitives;
 
 pub trait PPrintable {
     fn pprint(&self, printer: &mut Printer) -> std::io::Result<()>;
@@ -23,8 +23,6 @@ impl<A: PPrintable, B: PPrintable> PPrintable for (A, B) {
 }
 impl<P: PPrintable> PPrintable for Vec<P> {
     fn pprint(&self, printer: &mut Printer) -> std::io::Result<()> {
-        printer.list(self, |p, item| {
-            item.pprint(p)
-        })
+        printer.list(self, |p, item| item.pprint(p))
     }
 }

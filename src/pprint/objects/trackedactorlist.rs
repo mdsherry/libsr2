@@ -1,4 +1,7 @@
-use crate::{pprint::{PPrintable, Printer}, TrackedActorList};
+use crate::{
+    pprint::{PPrintable, Printer},
+    TrackedActorList,
+};
 
 impl PPrintable for TrackedActorList {
     fn pprint(&self, printer: &mut Printer) -> std::io::Result<()> {
@@ -9,15 +12,15 @@ impl PPrintable for TrackedActorList {
                     .game()
                     .srads
                     .iter()
-                    .filter_map(|actor| 
-                        actor.as_v2().and_then(|srad| 
+                    .filter_map(|actor| {
+                        actor.as_v2().and_then(|srad| {
                             if srad.index == id {
                                 Some((srad.index, srad.actor_type))
                             } else {
                                 None
                             }
-                        )
-                    )
+                        })
+                    })
                     .next()
                 {
                     index.pprint(p)?;

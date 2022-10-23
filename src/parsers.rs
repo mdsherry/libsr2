@@ -4,7 +4,6 @@ use nom::IResult;
 
 use crate::simple_parse;
 
-
 mod primitives;
 
 pub trait Parseable: Sized {
@@ -12,7 +11,6 @@ pub trait Parseable: Sized {
 
     fn write<W: Write>(&self, f: &mut W) -> std::io::Result<()>;
 }
-
 
 impl<A, B> Parseable for (A, B)
 where

@@ -2,7 +2,9 @@ use std::io;
 
 use chrono::{prelude::*, Duration};
 
-use crate::primitives::{VecMap, ItemId, InGameTime, TimeSinceYear1, PlantId, SceneGroupId, WindowsTime};
+use crate::primitives::{
+    InGameTime, ItemId, PlantId, SceneGroupId, TimeSinceYear1, VecMap, WindowsTime,
+};
 
 use super::{PPrintable, Printer};
 
@@ -49,7 +51,6 @@ impl<const N: usize> PPrintable for [u8; N] {
     }
 }
 
-
 impl<K: PPrintable, V: PPrintable> PPrintable for VecMap<K, V> {
     fn pprint(&self, printer: &mut Printer) -> io::Result<()> {
         printer.map(&self.0, |p, (k, v)| {
@@ -70,7 +71,6 @@ impl PPrintable for ItemId {
     }
 }
 
-
 impl PPrintable for InGameTime {
     fn pprint(&self, printer: &mut Printer) -> io::Result<()> {
         const SECONDS_PER_MINUTE: f64 = 60.;
@@ -87,7 +87,6 @@ impl PPrintable for InGameTime {
         }
     }
 }
-
 
 impl PPrintable for TimeSinceYear1 {
     fn pprint(&self, printer: &mut Printer) -> io::Result<()> {

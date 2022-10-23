@@ -1,4 +1,8 @@
-use crate::{pprint::{PPrintable, Printer}, SRUCI, objects::Obj};
+use crate::{
+    objects::Obj,
+    pprint::{PPrintable, Printer},
+    SRUCI,
+};
 
 impl PPrintable for SRUCI {
     fn pprint(&self, printer: &mut Printer) -> std::io::Result<()> {

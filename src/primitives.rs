@@ -4,18 +4,14 @@ pub struct InGameTime(pub f64);
 #[derive(Debug, Clone, Copy, Default, PartialEq)]
 pub struct TimeSinceYear1(pub i64);
 
-
 #[derive(Debug, Default, Clone, PartialEq)]
 pub struct VecMap<K, V>(pub Vec<(K, V)>);
-
 
 #[derive(Debug, Clone, Copy, Default, PartialEq)]
 pub struct WindowsTime(pub i64);
 
-
 #[derive(Debug, Default, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct ItemId(pub usize);
-
 
 #[derive(Debug, Default, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct SceneGroupId(pub usize);

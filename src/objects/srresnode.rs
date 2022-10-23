@@ -1,7 +1,6 @@
-use crate::primitives::{ItemId, InGameTime};
+use crate::primitives::{InGameTime, ItemId};
 
 use super::simple_obj;
-
 
 #[derive(Debug, Default, Clone, PartialEq)]
 pub struct SRResNode {

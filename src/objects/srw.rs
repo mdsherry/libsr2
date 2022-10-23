@@ -1,6 +1,6 @@
-use crate::primitives::{InGameTime, VecMap, ItemId};
+use crate::primitives::{InGameTime, ItemId, VecMap};
 
-use super::{simple_obj, SRPG, SRREDRONE, SRResNode, SRTp, Srrw, Srv3, SRG};
+use super::{simple_obj, SRResNode, SRTp, Srrw, Srv3, SRG, SRPG, SRREDRONE};
 
 #[derive(Debug, Clone, Default, PartialEq)]
 pub struct Srw {
@@ -29,7 +29,11 @@ simple_obj!(
     Srw,
     "SRW",
     world_time,
-    a, b, c, d, e,
+    a,
+    b,
+    c,
+    d,
+    e,
     plort_market_saturation,
     hen_spawner_timers,
     liquid_sources,
