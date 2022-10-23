@@ -3,20 +3,20 @@ macro_rules! simple_obj {
         simple_obj!($type_name : 1, $name, $($field),*);
     };
     ($type_name:ty : $version:literal, $name:literal, $($field:ident),*) => {
-        impl Obj for $type_name {
+        impl $crate::objects::Obj for $type_name {
             const NAME: &'static str = $name;
             const VERSION: i32 = $version;
 
-            fn parse_body(input: &[u8]) -> IResult<&[u8], Self> {
+            fn parse_body(input: &[u8]) -> nom::IResult<&[u8], Self> {
                 $(
-                    let (input, $field) = Parseable::parse(input)?;
+                    let (input, $field) = $crate::parsers::Parseable::parse(input)?;
                 )*
                 return Ok((input, Self { $($field),* }))
             }
 
-            fn write_body<W: Write>(&self, f: &mut W) -> std::io::Result<()> {
+            fn write_body<W: std::io::Write>(&self, f: &mut W) -> std::io::Result<()> {
                 $(
-                    self.$field.write(f)?;
+                    $crate::parsers::Parseable::write(&self.$field, f)?;
                 )*
                 Ok(())
             }

@@ -2,7 +2,7 @@ use std::{collections::HashMap, path::{PathBuf, Path}, fs::File, io::BufWriter};
 
 use clap::Parser;
 use kiss3d::{window::{Window, State}, light::Light, nalgebra::{UnitQuaternion, Vector3}, scene::SceneNode};
-use objects::{PPrintab1le, Parseable, Printer, SRGame, SRAD};
+use libsr2::{PPrintable, Parseable, Printer, SRGame};
 
 #[derive(Debug, Clone, Parser)]
 struct Args {
@@ -47,7 +47,7 @@ fn main() -> color_eyre::eyre::Result<()> {
     let outfile_name_base: Option<&Path> = args.filename.file_stem().map(|p| p.as_ref());
     let outfile_name = outfile_name_base.unwrap_or("save".as_ref()).with_extension("txt");
     let mut printer = Printer::new(&game).with_filename(&outfile_name)?;
-    printer.compare_mode(args.comparison);
+    printer.set_compare_mode(args.comparison);
     game.pprint(&mut printer);
     // game.gsumm.pprint(&mut printer);
     printer.nl();
