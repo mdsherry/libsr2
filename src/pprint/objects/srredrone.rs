@@ -1,10 +1,10 @@
 use crate::{pprint::{PPrintable, Printer}, SRREDRONE, objects::Obj};
 
 impl PPrintable for SRREDRONE {
-    fn pprint(&self, printer: &mut Printer) {
+    fn pprint(&self, printer: &mut Printer) -> std::io::Result<()> {
         printer.object(Self::NAME, |p| {
-            p.field("Discovered").value(self.discovered);
-            p.field("Name").value(&self.name);
+            p.field("Discovered")?.value(self.discovered)?;
+            p.field("Name")?.value(&self.name)
         })
     }
 }

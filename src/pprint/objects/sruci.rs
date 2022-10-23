@@ -1,10 +1,10 @@
 use crate::{pprint::{PPrintable, Printer}, SRUCI, objects::Obj};
 
 impl PPrintable for SRUCI {
-    fn pprint(&self, printer: &mut Printer) {
+    fn pprint(&self, printer: &mut Printer) -> std::io::Result<()> {
         printer.object(Self::NAME, |p| {
-            p.field("Upgrade components")
-                .value(&self.upgrade_components);
+            p.field("Upgrade components")?
+                .value(&self.upgrade_components)
         })
     }
 }

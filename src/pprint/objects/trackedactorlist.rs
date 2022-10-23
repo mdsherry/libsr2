@@ -1,9 +1,9 @@
 use crate::{pprint::{PPrintable, Printer}, TrackedActorList};
 
 impl PPrintable for TrackedActorList {
-    fn pprint(&self, printer: &mut Printer) {
+    fn pprint(&self, printer: &mut Printer) -> std::io::Result<()> {
         printer.object("TRACKEDACTORLIST", |p| {
-            p.ufield("Actor IDs").list(&self.actor_ids, |p, id| {
+            p.ufield("Actor IDs")?.list(&self.actor_ids, |p, id| {
                 let id = *id as i32; // WTF
                 if let Some((index, actor_type)) = p
                     .game()
@@ -20,14 +20,14 @@ impl PPrintable for TrackedActorList {
                     )
                     .next()
                 {
-                    index.pprint(p);
-                    p.print(" (");
-                    actor_type.pprint(p);
-                    p.print(")");
+                    index.pprint(p)?;
+                    p.print(" (")?;
+                    actor_type.pprint(p)?;
+                    p.print(")")
                 } else {
-                    p.print(&format!("<no such actor {id}?>"));
+                    p.print(&format!("<no such actor {id}?>"))
                 }
-            });
-        });
+            })
+        })
     }
 }
