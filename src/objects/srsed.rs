@@ -1,7 +1,10 @@
+#[cfg(test)]
+mod test;
+
 use super::simple_obj;
 
 #[derive(Debug, Default, Clone, PartialEq)]
-pub struct SRSed {
+pub struct SRSED {
     pub unknown: Vec<(i32, f32)>,
 }
-simple_obj!(SRSed, "SRSED", unknown);
+simple_obj!(SRSED, "SRSED", unknown);

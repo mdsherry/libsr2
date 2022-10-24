@@ -1,16 +1,19 @@
+#[cfg(test)]
+mod test;
+
 use crate::{
     primitives::{InGameTime, ItemId, SceneGroupId},
-    simple_obj, SRSed, Srv3, SRRCD, SRSE,
+    simple_obj, SRSED, SRV3, SRRCD, SRSE,
 };
 
 #[derive(Debug, Clone, Default, PartialEq)]
 pub struct SRAD2 {
-    pub pos: Srv3,
-    pub facing: Srv3,
+    pub pos: SRV3,
+    pub facing: SRV3,
     pub index: i32,
     pub unknown: [u8; 4],
     pub actor_type: ItemId,
-    pub srsed: SRSed,
+    pub srsed: SRSED,
     // NaN for grown fowl, timestamp for chicks, 0 otherwise
     pub chick_timer: InGameTime,
     // NaN for chicks and roosters, timestamp for hens, 0 otherwise
