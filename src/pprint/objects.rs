@@ -30,6 +30,6 @@ mod sruci;
 mod srupgradecomponents;
 mod srv3;
 mod srw;
-mod srzoneindex;
+mod srgzoneindex;
 mod stringpair;
 mod trackedactorlist;

@@ -1,10 +1,13 @@
+#[cfg(test)]
+mod test;
+
 use crate::{
     primitives::{InGameTime, WindowsTime},
     simple_obj,
 };
 
 #[derive(Debug, Default, Clone, PartialEq)]
-pub struct SREventEntry {
+pub struct SREVENTENTRY {
     pub typ: String,
     pub info: String,
     pub count: i32,
@@ -14,7 +17,7 @@ pub struct SREventEntry {
     pub last_updated_walltime: WindowsTime,
 }
 simple_obj!(
-    SREventEntry,
+    SREVENTENTRY,
     "SREVENTENTRY",
     typ,
     info,

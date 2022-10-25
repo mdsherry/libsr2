@@ -1,9 +1,9 @@
 use crate::{
     pprint::{PPrintable, Printer},
-    TrackedActorList,
+    TRACKEDACTORLIST,
 };
 
-impl PPrintable for TrackedActorList {
+impl PPrintable for TRACKEDACTORLIST {
     fn pprint(&self, printer: &mut Printer) -> std::io::Result<()> {
         printer.object("TRACKEDACTORLIST", |p| {
             p.ufield("Actor IDs")?.list(&self.actor_ids, |p, id| {

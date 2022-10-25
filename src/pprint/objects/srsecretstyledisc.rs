@@ -1,10 +1,10 @@
 use crate::{
     objects::Obj,
     pprint::{PPrintable, Printer},
-    SRSecretStyleDisc,
+    SRSECRETSTYLEDISC,
 };
 
-impl PPrintable for SRSecretStyleDisc {
+impl PPrintable for SRSECRETSTYLEDISC {
     fn pprint(&self, printer: &mut Printer) -> std::io::Result<()> {
         printer.object(Self::NAME, |p| {
             p.ufield("a")?.value(self.a)?;

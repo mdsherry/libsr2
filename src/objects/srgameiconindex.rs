@@ -1,7 +1,10 @@
+#[cfg(test)]
+mod test;
+
 use super::simple_obj;
 
 #[derive(Debug, Default, Clone, PartialEq)]
-pub struct SRGameIconIndex {
+pub struct SRGAMEICONINDEX {
     pub game_icons: Vec<String>,
 }
-simple_obj!(SRGameIconIndex, "SRGAMEICONINDEX", game_icons);
+simple_obj!(SRGAMEICONINDEX, "SRGAMEICONINDEX", game_icons);

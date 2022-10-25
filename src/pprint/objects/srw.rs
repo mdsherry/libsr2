@@ -1,10 +1,10 @@
 use crate::{
     objects::Obj,
     pprint::{PPrintable, Printer},
-    Srw,
+    SRW,
 };
 
-impl PPrintable for Srw {
+impl PPrintable for SRW {
     fn pprint(&self, printer: &mut Printer) -> std::io::Result<()> {
         printer.object(Self::NAME, |p| {
             p.field("World time")?.value(self.world_time)?;

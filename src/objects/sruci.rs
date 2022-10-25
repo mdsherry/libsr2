@@ -1,3 +1,6 @@
+#[cfg(test)]
+mod test;
+
 use super::simple_obj;
 
 #[derive(Debug, Default, Clone, PartialEq)]

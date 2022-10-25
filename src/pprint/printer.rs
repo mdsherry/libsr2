@@ -4,13 +4,13 @@ use std::{
     path::Path,
 };
 
-use crate::SRGame;
+use crate::SRGAME;
 
 use super::PPrintable;
 
 pub struct Printer<'a> {
     margin: usize,
-    game: &'a SRGame,
+    game: &'a SRGAME,
     out: Box<dyn io::Write>,
     new_line: bool,
     compare_mode: bool,
@@ -27,7 +27,7 @@ impl<'a> Printer<'a> {
     pub fn compare_mode(&self) -> bool {
         self.compare_mode
     }
-    pub fn new(game: &'a SRGame) -> Self {
+    pub fn new(game: &'a SRGAME) -> Self {
         Printer {
             margin: 0,
             game,
@@ -36,7 +36,7 @@ impl<'a> Printer<'a> {
             compare_mode: false,
         }
     }
-    pub fn game(&self) -> &SRGame {
+    pub fn game(&self) -> &SRGAME {
         self.game
     }
     fn ensure_nl(&mut self) -> io::Result<()> {

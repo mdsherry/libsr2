@@ -1,10 +1,10 @@
 use crate::{
     objects::Obj,
     pprint::{PPrintable, Printer},
-    SRTp,
+    SRTP,
 };
 
-impl PPrintable for SRTp {
+impl PPrintable for SRTP {
     fn pprint(&self, printer: &mut Printer) -> std::io::Result<()> {
         printer.object(Self::NAME, |p| {
             p.ufield("a")?.value(self.a)?;

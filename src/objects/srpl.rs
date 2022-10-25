@@ -1,6 +1,9 @@
+#[cfg(test)]
+mod test;
+
 use crate::primitives::{ItemId, VecMap};
 
-use super::{simple_obj, SRUpgradeComponents, Srv3, SRAD, SRDZR, SRPU};
+use super::{simple_obj, SRUPGRADECOMPONENTS, SRV3, SRAD, SRDZR, SRPU};
 
 #[derive(Debug, Default, Clone, PartialEq)]
 pub struct SRPL {
@@ -12,10 +15,10 @@ pub struct SRPL {
     pub c: i32,
     pub total_money_earned: i32,
     pub build: String,
-    pub pos: Srv3,
-    pub facing: Srv3,
+    pub pos: SRV3,
+    pub facing: SRV3,
     pub srpu: SRPU,
-    pub upgrade_components: SRUpgradeComponents,
+    pub upgrade_components: SRUPGRADECOMPONENTS,
     pub inventory: Vec<SRAD>,
     pub gadgets_unlocked: Vec<ItemId>,
     pub unknown: [u8; 4],

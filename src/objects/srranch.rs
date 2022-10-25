@@ -1,3 +1,6 @@
+#[cfg(test)]
+mod test;
+
 use crate::{
     primitives::{InGameTime, VecMap},
     SRLP,

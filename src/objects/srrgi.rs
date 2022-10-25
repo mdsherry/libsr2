@@ -1,7 +1,10 @@
+#[cfg(test)]
+mod test;
+
 use super::simple_obj;
 
 #[derive(Debug, Default, Clone, PartialEq)]
-pub struct Srrgi {
+pub struct SRRGI {
     pub patches: Vec<String>,
 }
-simple_obj!(Srrgi, "SRRGI", patches);
+simple_obj!(SRRGI, "SRRGI", patches);

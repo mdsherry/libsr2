@@ -1,6 +1,9 @@
+#[cfg(test)]
+mod test;
+
 use crate::primitives::{InGameTime, PlantId, VecMap};
 
-use super::{simple_obj, TrackedActorList, SRAD};
+use super::{simple_obj, TRACKEDACTORLIST, SRAD};
 
 // Plot?
 #[derive(Debug, Default, Clone, PartialEq)]
@@ -18,6 +21,6 @@ pub struct SRLP {
 
     pub f: f32,
     pub b1: bool,
-    pub tracked_actor_list: TrackedActorList,
+    pub tracked_actor_list: TRACKEDACTORLIST,
 }
 simple_obj!(SRLP : 2, "SRLP", ran_feeder, unknown, ran_vaccuum, unknown2, plot_type, plant_type, name, numbers, plot_inventories, upgrades, f, b1, tracked_actor_list);

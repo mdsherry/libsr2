@@ -4,7 +4,7 @@ pub(crate) use macros::*;
 use nom::{error::ContextError, IResult};
 
 use std::{fmt::Debug, hash::Hash, io::Write};
-pub(crate) trait Obj: Sized {
+pub trait Obj: Sized {
     const NAME: &'static str;
     const VERSION: i32 = 1;
     fn parse_prefix(input: &[u8]) -> IResult<&[u8], ()> {
@@ -70,8 +70,8 @@ pub use srrgi::*;
 mod srgameiconindex;
 pub use srgameiconindex::*;
 
-mod srzoneindex;
-pub use srzoneindex::*;
+mod srgzoneindex;
+pub use srgzoneindex::*;
 
 mod srgsumm;
 pub use srgsumm::*;

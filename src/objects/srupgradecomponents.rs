@@ -1,7 +1,10 @@
+#[cfg(test)]
+mod test;
+
 use super::simple_obj;
 
 #[derive(Debug, Default, Clone, PartialEq)]
-pub struct SRUpgradeComponents {
+pub struct SRUPGRADECOMPONENTS {
     pub bytes: [u8; 4],
 }
-simple_obj!(SRUpgradeComponents, "SRUPGRADECOMPONENTS", bytes);
+simple_obj!(SRUPGRADECOMPONENTS, "SRUPGRADECOMPONENTS", bytes);

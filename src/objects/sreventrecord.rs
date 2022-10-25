@@ -1,7 +1,10 @@
-use crate::{simple_obj, SREventEntry};
+#[cfg(test)]
+mod test;
+
+use crate::{simple_obj, SREVENTENTRY};
 
 #[derive(Debug, Default, Clone, PartialEq)]
-pub struct SREventRecord {
-    pub events: Vec<SREventEntry>,
+pub struct SREVENTRECORD {
+    pub events: Vec<SREVENTENTRY>,
 }
-simple_obj!(SREventRecord, "SREVENTRECORD", events);
+simple_obj!(SREVENTRECORD, "SREVENTRECORD", events);

@@ -1,6 +1,6 @@
-use crate::{objects::Obj, pprint::PPrintable, Printer, Srrw};
+use crate::{objects::Obj, pprint::PPrintable, Printer, SRRW};
 
-impl PPrintable for Srrw {
+impl PPrintable for SRRW {
     fn pprint(&self, printer: &mut Printer) -> std::io::Result<()> {
         printer.object(Self::NAME, |p| {
             p.ufield("ts")?.value(self.ts)?;

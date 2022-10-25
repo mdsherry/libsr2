@@ -14,7 +14,7 @@ use kiss3d::{
     scene::SceneNode,
     window::{State, Window},
 };
-use libsr2::{PPrintable, Parseable, Printer, SRGame};
+use libsr2::{PPrintable, Parseable, Printer, SRGAME};
 
 #[derive(Debug, Clone, Parser)]
 struct Args {
@@ -23,10 +23,10 @@ struct Args {
     comparison: bool,
 }
 
-fn load_data(path: &Path) -> color_eyre::eyre::Result<SRGame> {
+fn load_data(path: &Path) -> color_eyre::eyre::Result<SRGAME> {
     let data = std::fs::read(path)?;
 
-    let (_, game) = SRGame::parse(&data)
+    let (_, game) = SRGAME::parse(&data)
         .map_err(|e| match e {
             nom::Err::Incomplete(_) => todo!(),
             nom::Err::Error(e) | nom::Err::Failure(e) => {
@@ -128,6 +128,7 @@ fn main() -> color_eyre::eyre::Result<()> {
 
     // window.render_loop(state);
 
+   
     Ok(())
 }
 

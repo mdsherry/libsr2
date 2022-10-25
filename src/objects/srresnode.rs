@@ -1,9 +1,12 @@
+#[cfg(test)]
+mod test;
+
 use crate::primitives::{InGameTime, ItemId};
 
 use super::simple_obj;
 
 #[derive(Debug, Default, Clone, PartialEq)]
-pub struct SRResNode {
+pub struct SRRESNODE {
     pub name: String,
     pub count1: i32,
     pub ts: InGameTime,
@@ -12,7 +15,7 @@ pub struct SRResNode {
     pub contents: Vec<ItemId>,
 }
 simple_obj!(
-    SRResNode,
+    SRRESNODE,
     "SRRESNODE",
     name,
     count1,

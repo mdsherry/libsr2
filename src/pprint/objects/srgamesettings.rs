@@ -1,10 +1,10 @@
 use crate::{
     objects::Obj,
     pprint::{PPrintable, Printer},
-    SRGameSettings,
+    SRGAMESETTINGS,
 };
 
-impl PPrintable for SRGameSettings {
+impl PPrintable for SRGAMESETTINGS {
     fn pprint(&self, printer: &mut Printer) -> std::io::Result<()> {
         printer.object(Self::NAME, |p| {
             p.field("Game settings")?.value(&self.game_settings)?;

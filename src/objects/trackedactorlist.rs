@@ -1,7 +1,10 @@
+#[cfg(test)]
+mod test;
+
 use super::simple_obj;
 
 #[derive(Debug, Default, Clone, PartialEq)]
-pub struct TrackedActorList {
+pub struct TRACKEDACTORLIST {
     pub actor_ids: Vec<f64>,
 }
-simple_obj!(TrackedActorList, "TRACKEDACTORLIST", actor_ids);
+simple_obj!(TRACKEDACTORLIST, "TRACKEDACTORLIST", actor_ids);

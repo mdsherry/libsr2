@@ -1,6 +1,9 @@
+#[cfg(test)]
+mod test;
+
 use crate::{
     primitives::{ItemId, SceneGroupId},
-    Srv3,
+    SRV3,
 };
 
 use super::simple_obj;
@@ -15,7 +18,7 @@ pub struct SRPG {
     pub bytes: [u8; 32],
     pub scene_group_id: SceneGroupId,
     pub e: [u8; 5],
-    pub f: Srv3,
+    pub f: SRV3,
 }
 
 simple_obj!(

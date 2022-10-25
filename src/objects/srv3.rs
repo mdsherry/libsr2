@@ -1,14 +1,17 @@
+#[cfg(test)]
+mod test;
+
 use super::Obj;
 use crate::objects::Parseable;
 use nom::IResult;
 use std::{fmt::Debug, io::Write};
 
 #[derive(Clone, Default, PartialEq)]
-pub struct Srv3 {
+pub struct SRV3 {
     pub coords: [f32; 3],
 }
 
-impl Obj for Srv3 {
+impl Obj for SRV3 {
     const NAME: &'static str = "SRV3";
     fn parse_body(input: &[u8]) -> IResult<&[u8], Self> {
         let (input, a) = f32::parse(input)?;
@@ -25,7 +28,7 @@ impl Obj for Srv3 {
     }
 }
 
-impl Debug for Srv3 {
+impl Debug for SRV3 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(
             f,
