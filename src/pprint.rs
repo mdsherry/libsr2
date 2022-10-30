@@ -26,3 +26,15 @@ impl<P: PPrintable> PPrintable for Vec<P> {
         printer.list(self, |p, item| item.pprint(p))
     }
 }
+
+
+impl<P: PPrintable> PPrintable for Option<P> {
+    fn pprint(&self, printer: &mut Printer) -> std::io::Result<()> {
+        if let Some(value) = self {
+            value.pprint(printer)?;
+        } else {
+            printer.print("<none>")?;
+        }
+        Ok(())
+    }
+}

@@ -1,24 +1,29 @@
 mod macros;
 use crate::parsers::Parseable;
 pub(crate) use macros::*;
-use nom::{error::ContextError, IResult};
+use nom::{error::{ContextError, VerboseError}, IResult};
 
 use std::{fmt::Debug, hash::Hash, io::Write};
 pub trait Obj: Sized {
     const NAME: &'static str;
     const VERSION: i32 = 1;
-    fn parse_prefix(input: &[u8]) -> IResult<&[u8], ()> {
-        let (input, _) = nom::bytes::complete::tag([Self::NAME.len() as u8])(input)?;
-        let (input, _) = nom::bytes::complete::tag(Self::NAME.as_bytes())(input)?;
-        let (input, _) = nom::number::complete::le_i32(input)?;
-        let (input, _) = nom::bytes::complete::tag([0x00, 0x30])(input)?;
+    fn parse_prefix(input: &[u8]) -> IResult<&[u8], (), VerboseError<&[u8]>> {
+        let (input, _) = nom::bytes::complete::tag([Self::NAME.len() as u8])(input)
+            .map_err(|e| e.map(|e| ContextError::add_context(input, "Reading object name length", e)))?;
+        let (input, _) = nom::bytes::complete::tag(Self::NAME.as_bytes())(input)
+            .map_err(|e| e.map(|e| ContextError::add_context(input, "Reading object name", e)))?;
+        let (input, _) = nom::number::complete::le_i32(input)
+            .map_err(|e| e.map(|e| ContextError::add_context(input, "Reading version number", e)))?;
+        let (input, _) = nom::bytes::complete::tag([0x00, 0x30])(input)
+            .map_err(|e| e.map(|e| ContextError::add_context(input, "Expected to see 0x00 0x30", e)))?;
         Ok((input, ()))
     }
-    fn parse_suffix(input: &[u8]) -> IResult<&[u8], ()> {
-        let (input, _) = nom::bytes::complete::tag([0x00, 0x40])(input)?;
+    fn parse_suffix(input: &[u8]) -> IResult<&[u8], (), VerboseError<&[u8]>> {
+        let (input, _) = nom::bytes::complete::tag([0x00, 0x40])(input)
+            .map_err(|e| e.map(|e| ContextError::add_context(input, "Expected to see 0x00 0x40", e)))?;
         Ok((input, ()))
     }
-    fn parse_body(input: &[u8]) -> IResult<&[u8], Self>;
+    fn parse_body(input: &[u8]) -> IResult<&[u8], Self, VerboseError<&[u8]>>;
 
     fn write_prefix<W: Write>(&self, f: &mut W) -> std::io::Result<()> {
         f.write_all(&[Self::NAME.len() as u8])?;
@@ -38,12 +43,14 @@ impl<O> Parseable for O
 where
     O: Obj + Debug,
 {
-    fn parse(input: &[u8]) -> IResult<&[u8], Self> {
-        let (input, _) = Self::parse_prefix(input)?;
+    fn parse(input: &[u8]) -> IResult<&[u8], Self, VerboseError<&[u8]>> {
+        let (input, _) = Self::parse_prefix(input)
+            .map_err(|e| e.map(|e| ContextError::add_context(input, Self::NAME, e)))?;
         let (input, rv) = Self::parse_body(input)
             .map_err(|e| e.map(|e| ContextError::add_context(input, Self::NAME, e)))?;
 
-        let (input, _) = Self::parse_suffix(input)?;
+        let (input, _) = Self::parse_suffix(input)
+            .map_err(|e| e.map(|e| ContextError::add_context(input, Self::NAME, e)))?;
         Ok((input, rv))
     }
 

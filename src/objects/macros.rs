@@ -7,9 +7,10 @@ macro_rules! simple_obj {
             const NAME: &'static str = $name;
             const VERSION: i32 = $version;
 
-            fn parse_body(input: &[u8]) -> nom::IResult<&[u8], Self> {
+            fn parse_body(input: &[u8]) -> nom::IResult<&[u8], Self, nom::error::VerboseError<&[u8]>> {
                 $(
-                    let (input, $field) = $crate::parsers::Parseable::parse(input)?;
+                    let (input, $field) = $crate::parsers::Parseable::parse(input)
+                        .map_err(|e| e.map(|e| nom::error::ContextError::add_context(input, concat!("Parsing field '", stringify!($field), "'"), e)))?;
                 )*
                 return Ok((input, Self { $($field),* }))
             }

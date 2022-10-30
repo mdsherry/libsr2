@@ -1,6 +1,6 @@
 use crate::parsers::Parseable;
 
-use nom::IResult;
+use nom::{IResult, error::VerboseError};
 use std::{fmt::Debug, io::Write};
 mod srad1;
 mod srad2;
@@ -32,7 +32,7 @@ impl Default for SRAD {
     }
 }
 impl Parseable for SRAD {
-    fn parse(input: &[u8]) -> IResult<&[u8], Self> {
+    fn parse(input: &[u8]) -> IResult<&[u8], Self, VerboseError<&[u8]>> {
         nom::branch::alt((
             nom::combinator::map(SRAD1::parse, SRAD::V1),
             nom::combinator::map(SRAD2::parse, SRAD::V2),

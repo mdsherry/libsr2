@@ -12,12 +12,12 @@ pub struct StringPair(pub String, pub String);
 
 impl Obj for StringPair {
     const NAME: &'static str = "";
-    fn parse_prefix(input: &[u8]) -> IResult<&[u8], ()> {
+    fn parse_prefix(input: &[u8]) -> IResult<&[u8], (), nom::error::VerboseError<&[u8]>> {
         let (input, _) = nom::bytes::complete::tag([0])(input)?;
         let (input, _) = nom::bytes::complete::tag([0x00, 0x00, 0x00, 0x00, 0x00, 0x30])(input)?;
         Ok((input, ()))
     }
-    fn parse_body(input: &[u8]) -> IResult<&[u8], Self> {
+    fn parse_body(input: &[u8]) -> IResult<&[u8], Self, nom::error::VerboseError<&[u8]>> {
         let (input, (a, b)) = Parseable::parse(input)?;
         Ok((input, StringPair(a, b)))
     }

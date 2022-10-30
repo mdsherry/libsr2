@@ -1,6 +1,6 @@
 use std::io::Write;
 
-use nom::IResult;
+use nom::{combinator::map_res, IResult, error::{VerboseError, ContextError}};
 
 use crate::{
     primitives::{InGameTime, ItemId, PlantId, SceneGroupId, TimeSinceYear1, VecMap, WindowsTime},
@@ -10,7 +10,7 @@ use crate::{
 use super::Parseable;
 
 impl Parseable for InGameTime {
-    fn parse(input: &[u8]) -> IResult<&[u8], Self> {
+    fn parse(input: &[u8]) -> IResult<&[u8], Self, nom::error::VerboseError<&[u8]>> {
         let (input, inner) = f64::parse(input)?;
         Ok((input, Self(inner)))
     }
@@ -21,7 +21,7 @@ impl Parseable for InGameTime {
 }
 
 impl Parseable for TimeSinceYear1 {
-    fn parse(input: &[u8]) -> IResult<&[u8], Self> {
+    fn parse(input: &[u8]) -> IResult<&[u8], Self, nom::error::VerboseError<&[u8]>> {
         let (input, inner) = i64::parse(input)?;
         Ok((input, Self(inner)))
     }
@@ -32,7 +32,7 @@ impl Parseable for TimeSinceYear1 {
 }
 
 impl Parseable for WindowsTime {
-    fn parse(input: &[u8]) -> IResult<&[u8], Self> {
+    fn parse(input: &[u8]) -> IResult<&[u8], Self, nom::error::VerboseError<&[u8]>> {
         let (input, inner) = i64::parse(input)?;
         Ok((input, Self(inner)))
     }
@@ -43,19 +43,18 @@ impl Parseable for WindowsTime {
 }
 
 impl Parseable for String {
-    fn parse(input: &[u8]) -> IResult<&[u8], Self> {
+    fn parse(input: &[u8]) -> IResult<&[u8], Self, nom::error::VerboseError<&[u8]>> {
         let orig_input = input;
         let (input, n) = nom::number::complete::le_u8(input)?;
-        let (input, s) = nom::bytes::complete::take(n as usize)(input)?;
-        Ok(std::str::from_utf8(s)
-            .map(|s| (input, s.to_owned()))
-            .unwrap_or_else(|e| {
-                panic!(
-                    "{:?} was not a valid string: {e} ({} bytes from end)",
-                    s,
-                    orig_input.len()
-                )
-            }))
+        nom::combinator::map(
+            map_res(nom::bytes::complete::take(n as usize), |s| {
+                std::str::from_utf8(s)
+            }),
+            |s| {
+                s.to_string()
+            },
+        )(input)
+            .map_err(|e| e.map(|e| ContextError::add_context(input, "Invalid UTF-8", e)))
     }
 
     fn write<W: Write>(&self, f: &mut W) -> std::io::Result<()> {
@@ -69,7 +68,7 @@ where
     K: Parseable,
     V: Parseable,
 {
-    fn parse(input: &[u8]) -> IResult<&[u8], Self> {
+    fn parse(input: &[u8]) -> IResult<&[u8], Self, nom::error::VerboseError<&[u8]>> {
         let (mut input, len) = nom::number::complete::le_i32(input)?;
         let mut rv = Vec::with_capacity(len as usize);
         for _ in 0..len {
@@ -95,7 +94,7 @@ where
 }
 
 impl Parseable for bool {
-    fn parse(input: &[u8]) -> IResult<&[u8], Self> {
+    fn parse(input: &[u8]) -> IResult<&[u8], Self, nom::error::VerboseError<&[u8]>> {
         let (input, byte) = nom::bytes::complete::take(1 as usize)(input)?;
         Ok((input, byte[0] == 1))
     }
@@ -106,7 +105,7 @@ impl Parseable for bool {
 }
 
 impl<const N: usize> Parseable for [u8; N] {
-    fn parse(input: &[u8]) -> IResult<&[u8], Self> {
+    fn parse(input: &[u8]) -> IResult<&[u8], Self, nom::error::VerboseError<&[u8]>> {
         let (input, rv) = nom::bytes::complete::take(N)(input)?;
         Ok((input, s2a(rv).unwrap()))
     }
@@ -117,7 +116,7 @@ impl<const N: usize> Parseable for [u8; N] {
 }
 
 impl Parseable for f64 {
-    fn parse(input: &[u8]) -> IResult<&[u8], Self> {
+    fn parse(input: &[u8]) -> IResult<&[u8], Self, nom::error::VerboseError<&[u8]>> {
         nom::number::complete::le_f64(input)
     }
 
@@ -126,7 +125,7 @@ impl Parseable for f64 {
     }
 }
 impl Parseable for i64 {
-    fn parse(input: &[u8]) -> IResult<&[u8], Self> {
+    fn parse(input: &[u8]) -> IResult<&[u8], Self, nom::error::VerboseError<&[u8]>> {
         nom::number::complete::le_i64(input)
     }
 
@@ -136,7 +135,7 @@ impl Parseable for i64 {
 }
 
 impl Parseable for i32 {
-    fn parse(input: &[u8]) -> IResult<&[u8], Self> {
+    fn parse(input: &[u8]) -> IResult<&[u8], Self, nom::error::VerboseError<&[u8]>> {
         nom::number::complete::le_i32(input)
     }
 
@@ -146,7 +145,7 @@ impl Parseable for i32 {
 }
 
 impl Parseable for f32 {
-    fn parse(input: &[u8]) -> IResult<&[u8], Self> {
+    fn parse(input: &[u8]) -> IResult<&[u8], Self, nom::error::VerboseError<&[u8]>> {
         nom::number::complete::le_f32(input)
     }
 
@@ -160,7 +159,7 @@ impl<T> Parseable for Option<T>
 where
     T: Parseable,
 {
-    fn parse(input: &[u8]) -> IResult<&[u8], Self> {
+    fn parse(input: &[u8]) -> IResult<&[u8], Self, nom::error::VerboseError<&[u8]>> {
         let (input, has_value) = bool::parse(input)?;
         if has_value {
             T::parse(input).map(|(input, value)| (input, Some(value)))
@@ -184,7 +183,7 @@ impl<T> Parseable for Vec<T>
 where
     T: Parseable,
 {
-    fn parse(input: &[u8]) -> IResult<&[u8], Self> {
+    fn parse(input: &[u8]) -> IResult<&[u8], Self, nom::error::VerboseError<&[u8]>> {
         let (mut input, len) = nom::number::complete::le_i32(input)?;
         let mut rv = Vec::with_capacity(len as usize);
         for _ in 0..len {
@@ -206,7 +205,7 @@ where
 macro_rules! parse_newtype {
     ($name:ty, $file_type:ty) => {
         impl Parseable for $name {
-            fn parse(input: &[u8]) -> IResult<&[u8], Self> {
+            fn parse(input: &[u8]) -> IResult<&[u8], Self, nom::error::VerboseError<&[u8]>> {
                 let (input, value) = <$file_type as Parseable>::parse(input)?;
                 Ok((input, Self(value as _)))
             }

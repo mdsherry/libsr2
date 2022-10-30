@@ -15,7 +15,8 @@ pub struct SRW {
     pub e: i32,
     pub plort_market_saturation: VecMap<ItemId, f32>,
     pub hen_spawner_timers: VecMap<SRV3, InGameTime>,
-    pub liquid_sources: VecMap<String, i32>,
+    // To differentiate regular water from special sparkly water in the desert?
+    pub liquid_sources: VecMap<String, f32>,
     pub slime_spawner_timers: VecMap<SRV3, InGameTime>,
     pub gordos: VecMap<String, SRG>,
     pub map5: VecMap<SRV3, SRRW>,

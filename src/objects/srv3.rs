@@ -13,7 +13,7 @@ pub struct SRV3 {
 
 impl Obj for SRV3 {
     const NAME: &'static str = "SRV3";
-    fn parse_body(input: &[u8]) -> IResult<&[u8], Self> {
+    fn parse_body(input: &[u8]) -> IResult<&[u8], Self, nom::error::VerboseError<&[u8]>> {
         let (input, a) = f32::parse(input)?;
         let (input, b) = f32::parse(input)?;
         let (input, c) = f32::parse(input)?;
