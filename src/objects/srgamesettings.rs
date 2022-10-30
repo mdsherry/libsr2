@@ -5,7 +5,7 @@ use crate::StringPair;
 
 use super::simple_obj;
 
-#[derive(Debug, Default, Clone, PartialEq)]
+#[derive(Debug, Default, Clone, PartialEq, Eq)]
 pub struct SRGAMESETTINGS {
     pub game_settings: Vec<StringPair>,
     pub game_icon: i32,

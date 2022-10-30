@@ -94,7 +94,7 @@ where
 
 impl Parseable for bool {
     fn parse(input: &[u8]) -> IResult<&[u8], Self, VerboseError<&[u8]>> {
-        let (input, byte) = nom::bytes::complete::take(1 as usize)(input)?;
+        let (input, byte) = nom::bytes::complete::take(1_usize)(input)?;
         Ok((input, byte[0] == 1))
     }
 

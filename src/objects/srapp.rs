@@ -4,7 +4,7 @@ mod test;
 use super::simple_obj;
 use crate::primitives::{ItemId, VecMap};
 
-#[derive(Debug, Default, Clone, PartialEq)]
+#[derive(Debug, Default, Clone, PartialEq, Eq)]
 pub struct SRAPP {
     pub item_map: VecMap<ItemId, (i32, i32)>,
     pub unknown: VecMap<ItemId, i32>,

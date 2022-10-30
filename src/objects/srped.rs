@@ -3,7 +3,7 @@ mod test;
 
 use super::simple_obj;
 
-#[derive(Debug, Default, Clone, PartialEq)]
+#[derive(Debug, Default, Clone, PartialEq, Eq)]
 pub struct SRPED {
     pub a: i32, // Probably an array?
     pub index: Vec<String>,

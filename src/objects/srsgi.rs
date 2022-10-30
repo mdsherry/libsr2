@@ -4,7 +4,7 @@ mod test;
 use super::simple_obj;
 use std::fmt::Debug;
 
-#[derive(Debug, Default, Clone, PartialEq)]
+#[derive(Debug, Default, Clone, PartialEq, Eq)]
 pub struct SRSGI {
     pub scene_groups: Vec<String>,
 }

@@ -3,7 +3,7 @@ mod test;
 
 use super::simple_obj;
 
-#[derive(Debug, Default, Clone, PartialEq)]
+#[derive(Debug, Default, Clone, PartialEq, Eq)]
 pub struct SRGZONEINDEX {
     pub zones: Vec<String>,
 }

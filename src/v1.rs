@@ -400,7 +400,7 @@ impl<T> PPrintable<T> for SRTP {
         })
     }
 }
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub struct SRQSEG {
     pub a: bool,
     pub b: i32,
@@ -436,7 +436,7 @@ impl<T> PPrintable<T> for SRF {
         })
     }
 }
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub struct SRENG {
     pub a: i32,
 }
@@ -477,7 +477,8 @@ impl<T> PPrintable<T> for SRGLITCH {
     }
 }
 
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Eq)]
+#[allow(non_camel_case_types)]
 pub struct SRGLITCH_TPD {
     pub a: bool,
 }
@@ -493,6 +494,7 @@ impl<T> PPrintable<T> for SRGLITCH_TPD {
     }
 }
 #[derive(Debug, Clone, PartialEq)]
+#[allow(non_camel_case_types)]
 pub struct SRGLITCH_TS {
     pub a: f64,
 }
@@ -508,6 +510,7 @@ impl<T> PPrintable<T> for SRGLITCH_TS {
     }
 }
 #[derive(Debug, Clone, PartialEq)]
+#[allow(non_camel_case_types)]
 pub struct SRGLITCH_ID {
     pub a: Option<f64>,
 }
@@ -523,6 +526,7 @@ impl<T> PPrintable<T> for SRGLITCH_ID {
     }
 }
 #[derive(Debug, Clone, PartialEq)]
+#[allow(non_camel_case_types)]
 pub struct SRGLITCH_IP {
     pub a: bool,
     pub b: f64,
@@ -540,6 +544,7 @@ impl<T> PPrintable<T> for SRGLITCH_IP {
     }
 }
 #[derive(Debug, Clone, PartialEq)]
+#[allow(non_camel_case_types)]
 pub struct SRGLITCH_ST {
     pub a: f64,
 }
@@ -664,7 +669,7 @@ impl<T> PPrintable<T> for SRPL {
     }
 }
 
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub struct SRMAIL {
     pub a: i32,
     pub b: String,
@@ -684,7 +689,7 @@ impl<T> PPrintable<T> for SRMAIL {
     }
 }
 
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub struct SRDZR {
     pub a: VecMap<i32, i32>,
     pub b: VecMap<String, Option<SRDZRSETTINGS>>,
@@ -702,7 +707,7 @@ impl<T> PPrintable<T> for SRDZR {
     }
 }
 
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub struct SRDZRSETTINGS {
     pub a: i32
 }
@@ -841,7 +846,7 @@ impl<T> PPrintable<T> for SRSE {
         })
     }
 }
-#[derive(Debug, Default, Clone, PartialEq)]
+#[derive(Debug, Default, Clone, PartialEq, Eq)]
 pub struct SRPED {
     pub a: i32, // Probably an array?
     pub index: Vec<String>,
@@ -884,7 +889,7 @@ impl<T> PPrintable<T> for SRGA {
         })
     }
 }
-#[derive(Debug, Default, Clone, PartialEq)]
+#[derive(Debug, Default, Clone, PartialEq, Eq)]
 pub struct SRHD {
     pub unknown: [u8; 8],
 }
@@ -899,7 +904,7 @@ impl<T> PPrintable<T> for SRHD {
         })
     }
 }
-#[derive(Debug, Default, Clone, PartialEq)]
+#[derive(Debug, Default, Clone, PartialEq, Eq)]
 pub struct SRAPP {
     pub item_map: VecMap<i32, (i32, i32)>,
     pub unknown: VecMap<i32, i32>,
@@ -916,7 +921,7 @@ impl<T> PPrintable<T> for SRAPP {
         })
     }
 }
-#[derive(Debug, Default, Clone, PartialEq)]
+#[derive(Debug, Default, Clone, PartialEq, Eq)]
 pub struct SRINSTR {
     pub unknown: [u8; 8],
 }
