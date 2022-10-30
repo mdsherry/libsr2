@@ -1,11 +1,11 @@
 use crate::{
     objects::Obj,
     pprint::{PPrintable, Printer},
-    SRPG,
+    SRPG, SRGAME,
 };
 
-impl PPrintable for SRPG {
-    fn pprint(&self, printer: &mut Printer) -> std::io::Result<()> {
+impl PPrintable<SRGAME> for SRPG {
+    fn pprint(&self, printer: &mut Printer<SRGAME>) -> std::io::Result<()> {
         printer.object(Self::NAME, |p| {
             p.field("Item ID")?.value(self.item_id)?;
             p.field("Scene group ID")?.value(self.scene_group_id)?;

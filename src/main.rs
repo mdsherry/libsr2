@@ -116,8 +116,7 @@ fn err_dump(data: &[u8], e: VerboseError<&[u8]>) {
 
 fn load_data(path: &Path) -> color_eyre::eyre::Result<SRGAME> {
     let data = std::fs::read(path)?;
-    let v2game = Default::default();
-    let mut printer = Printer::new(&v2game).with_filename("testout.txt".as_ref())?;
+    let mut printer = Printer::new_v1().with_filename("testout.txt".as_ref())?;
     
     
     // for i in 0..data.len() {

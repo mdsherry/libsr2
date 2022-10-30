@@ -1,11 +1,11 @@
 use crate::{
     objects::Obj,
     pprint::{PPrintable, Printer},
-    SREVENTENTRY,
+    SREVENTENTRY, SRGAME,
 };
 
-impl PPrintable for SREVENTENTRY {
-    fn pprint(&self, printer: &mut Printer) -> std::io::Result<()> {
+impl PPrintable<SRGAME> for SREVENTENTRY {
+    fn pprint(&self, printer: &mut Printer<SRGAME>) -> std::io::Result<()> {
         printer.object(Self::NAME, |p| {
             p.field("Type")?.value(&self.typ)?;
             p.field("Info")?.value(&self.info)?;

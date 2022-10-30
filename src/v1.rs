@@ -1,7 +1,6 @@
-use crate::{parsers::Parseable, simple_obj, Obj, primitives::{InGameTime, VecMap}, SRV3, PPrintable};
-use nom::{error::ContextError, IResult};
+use crate::{simple_obj, Obj, primitives::{InGameTime, VecMap}, SRV3, PPrintable};
 
-use std::{fmt::Debug, hash::Hash, io::Write};
+use std::fmt::Debug;
 
 #[derive(Debug, Clone, PartialEq)]
 pub struct SRGSUMM {
@@ -19,8 +18,8 @@ pub struct SRGSUMM {
     pub boo: bool,
 }
 simple_obj!(SRGSUMM : 4, "SRGSUMM", version, a, b, c, d, time, e, f, g, h, i, boo);
-impl PPrintable for SRGSUMM {
-    fn pprint(&self, printer: &mut crate::Printer) -> std::io::Result<()> {
+impl<T> PPrintable<T> for SRGSUMM {
+    fn pprint(&self, printer: &mut crate::Printer<T>) -> std::io::Result<()> {
         printer.object("SRGSUMM", |p| {
             p.field("Version")?.value(&self.version)?;
             p.ufield("a")?.value(&self.a)?;
@@ -74,8 +73,8 @@ simple_obj!(SRW : 0x16, "SRW", time, a, time2, b, c, d, e, f, g, h, j, liquid_so
     gadgets, treasure_pods, switches, puzzles, phase_site, srf, oases, ginger_patches,
     qsegs, gordo_echo_notes, glitch);
 
-impl PPrintable for SRW {
-    fn pprint(&self, printer: &mut crate::Printer) -> std::io::Result<()> {
+impl<T> PPrintable<T> for SRW {
+    fn pprint(&self, printer: &mut crate::Printer<T>) -> std::io::Result<()> {
         printer.object(Self::NAME, |p| {
             p.ufield("time")?.value(&self.time)?;
             p.ufield("a")?.value(&self.a)?;
@@ -124,8 +123,8 @@ pub struct SREO {
 
 simple_obj!(SREO : 0x04, "SREO", b1, s1, s2, a, b, c, d, e, f );
 
-impl PPrintable for SREO {
-    fn pprint(&self, printer: &mut crate::Printer) -> std::io::Result<()> {
+impl<T> PPrintable<T> for SREO {
+    fn pprint(&self, printer: &mut crate::Printer<T>) -> std::io::Result<()> {
         printer.object(Self::NAME, |p| {
             p.ufield("b1")?.value(&self.b1)?;
             p.ufield("s1")?.value(&self.s1)?;
@@ -151,8 +150,8 @@ pub struct SRRIE {
 
 simple_obj!(SRRIE : 0x03, "SRRIE", a, b, c, d);
 
-impl PPrintable for SRRIE {
-    fn pprint(&self, printer: &mut crate::Printer) -> std::io::Result<()> {
+impl<T> PPrintable<T> for SRRIE {
+    fn pprint(&self, printer: &mut crate::Printer<T>) -> std::io::Result<()> {
         printer.object(Self::NAME, |p| {
             p.ufield("a")?.value(&self.a)?;
             p.ufield("b")?.value(&self.b)?;
@@ -170,8 +169,8 @@ pub struct SRIE {
 }
 simple_obj!(SRIE : 0x03, "SRIE", a, b, c);
 
-impl PPrintable for SRIE {
-    fn pprint(&self, printer: &mut crate::Printer) -> std::io::Result<()> {
+impl<T> PPrintable<T> for SRIE {
+    fn pprint(&self, printer: &mut crate::Printer<T>) -> std::io::Result<()> {
         printer.object(Self::NAME, |p| {
             p.ufield("a")?.value(&self.a)?;
             p.ufield("b")?.value(&self.b)?;
@@ -180,7 +179,7 @@ impl PPrintable for SRIE {
         })
     }
 }
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub struct SRG {
     // Gordos
     pub fed: i32,
@@ -188,8 +187,8 @@ pub struct SRG {
 }
 simple_obj!(SRG : 1, "SRG", fed, unknown);
 
-impl PPrintable for SRG {
-    fn pprint(&self, printer: &mut crate::Printer) -> std::io::Result<()> {
+impl<T> PPrintable<T> for SRG {
+    fn pprint(&self, printer: &mut crate::Printer<T>) -> std::io::Result<()> {
         printer.object(Self::NAME, |p| {
             p.ufield("fed")?.value(&self.fed)?;
             p.ufield("unknown")?.value(&self.unknown)?;
@@ -205,8 +204,8 @@ pub struct SRRW {
 }
 simple_obj!(SRRW : 3, "SRRW", a, unknown);
 
-impl PPrintable for SRRW {
-    fn pprint(&self, printer: &mut crate::Printer) -> std::io::Result<()> {
+impl<T> PPrintable<T> for SRRW {
+    fn pprint(&self, printer: &mut crate::Printer<T>) -> std::io::Result<()> {
         printer.object(Self::NAME, |p| {
             p.ufield("a")?.value(&self.a)?;
             p.ufield("unknown")?.value(&self.unknown)?;
@@ -229,8 +228,8 @@ pub struct SRPG {
 }
 simple_obj!(SRPG : 8, "SRPG", a, b, c1, c2, c3, c4, c5, c, d);
 
-impl PPrintable for SRPG {
-    fn pprint(&self, printer: &mut crate::Printer) -> std::io::Result<()> {
+impl<T> PPrintable<T> for SRPG {
+    fn pprint(&self, printer: &mut crate::Printer<T>) -> std::io::Result<()> {
         printer.object(Self::NAME, |p| {
             p.ufield("a")?.value(&self.a)?;
             p.ufield("b")?.value(&self.b)?;
@@ -256,8 +255,8 @@ pub struct SRDRGD {
 }
 simple_obj!(SRDRGD : 1, "SRDRGD", b1, a, b2, b, c);
 
-impl PPrintable for SRDRGD {
-    fn pprint(&self, printer: &mut crate::Printer) -> std::io::Result<()> {
+impl<T> PPrintable<T> for SRDRGD {
+    fn pprint(&self, printer: &mut crate::Printer<T>) -> std::io::Result<()> {
         printer.object(Self::NAME, |p| {
             p.ufield("b1")?.value(&self.b1)?;
             p.ufield("a")?.value(&self.a)?;
@@ -282,8 +281,8 @@ pub struct SRDRONE {
 }
 simple_obj!(SRDRONE : 8, "SRDRONE", b1, b, c1, c, d1, d, e, f);
 
-impl PPrintable for SRDRONE {
-    fn pprint(&self, printer: &mut crate::Printer) -> std::io::Result<()> {
+impl<T> PPrintable<T> for SRDRONE {
+    fn pprint(&self, printer: &mut crate::Printer<T>) -> std::io::Result<()> {
         printer.object(Self::NAME, |p| {
             p.ufield("b1")?.value(&self.b1)?;
             p.ufield("b")?.value(&self.b)?;
@@ -306,8 +305,8 @@ pub struct SRAD {
 }
 simple_obj!(SRAD : 2, "SRAD", a, b, c);
 
-impl PPrintable for SRAD {
-    fn pprint(&self, printer: &mut crate::Printer) -> std::io::Result<()> {
+impl<T> PPrintable<T> for SRAD {
+    fn pprint(&self, printer: &mut crate::Printer<T>) -> std::io::Result<()> {
         printer.object(Self::NAME, |p| {
             p.ufield("a")?.value(&self.a)?;
             p.ufield("b")?.value(&self.b)?;
@@ -323,8 +322,8 @@ pub struct SRSED {
 }
 simple_obj!(SRSED : 2, "SRSED", a);
 
-impl PPrintable for SRSED {
-    fn pprint(&self, printer: &mut crate::Printer) -> std::io::Result<()> {
+impl<T> PPrintable<T> for SRSED {
+    fn pprint(&self, printer: &mut crate::Printer<T>) -> std::io::Result<()> {
         printer.object(Self::NAME, |p| {
             p.ufield("a")?.value(&self.a)?;
 
@@ -339,8 +338,8 @@ pub struct SRDRST {
 }
 simple_obj!(SRDRST : 1, "SRDRST", b1, a);
 
-impl PPrintable for SRDRST {
-    fn pprint(&self, printer: &mut crate::Printer) -> std::io::Result<()> {
+impl<T> PPrintable<T> for SRDRST {
+    fn pprint(&self, printer: &mut crate::Printer<T>) -> std::io::Result<()> {
         printer.object(Self::NAME, |p| {
             p.ufield("b1")?.value(&self.b1)?;
             p.ufield("a")?.value(&self.a)?;
@@ -355,8 +354,8 @@ pub struct SRDRSTB {
 }
 simple_obj!(SRDRSTB : 1, "SRDRSTB", a);
 
-impl PPrintable for SRDRSTB {
-    fn pprint(&self, printer: &mut crate::Printer) -> std::io::Result<()> {
+impl<T> PPrintable<T> for SRDRSTB {
+    fn pprint(&self, printer: &mut crate::Printer<T>) -> std::io::Result<()> {
         printer.object(Self::NAME, |p| {
             p.ufield("a")?.value(&self.a)?;
 
@@ -364,7 +363,7 @@ impl PPrintable for SRDRSTB {
         })
     }
 }
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub struct SRDRONEPROG {
     a: String,
     b: String,
@@ -373,8 +372,8 @@ pub struct SRDRONEPROG {
 simple_obj!(SRDRONEPROG : 1, "SRDRONEPROG", a, b, c);
 
 
-impl PPrintable for SRDRONEPROG {
-    fn pprint(&self, printer: &mut crate::Printer) -> std::io::Result<()> {
+impl<T> PPrintable<T> for SRDRONEPROG {
+    fn pprint(&self, printer: &mut crate::Printer<T>) -> std::io::Result<()> {
         printer.object(Self::NAME, |p| {
             p.ufield("a")?.value(&self.a)?;
             p.ufield("b")?.value(&self.b)?;
@@ -384,15 +383,15 @@ impl PPrintable for SRDRONEPROG {
         })
     }
 }
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub struct SRTP {
     pub a: i32,
     pub b: i32,
 }
 simple_obj!(SRTP : 1, "SRTP", a, b);
 
-impl PPrintable for SRTP {
-    fn pprint(&self, printer: &mut crate::Printer) -> std::io::Result<()> {
+impl<T> PPrintable<T> for SRTP {
+    fn pprint(&self, printer: &mut crate::Printer<T>) -> std::io::Result<()> {
         printer.object(Self::NAME, |p| {
             p.ufield("a")?.value(&self.a)?;
             p.ufield("b")?.value(&self.b)?;
@@ -408,8 +407,8 @@ pub struct SRQSEG {
 }
 simple_obj!(SRQSEG : 2, "SRQSEG", a, b);
 
-impl PPrintable for SRQSEG {
-    fn pprint(&self, printer: &mut crate::Printer) -> std::io::Result<()> {
+impl<T> PPrintable<T> for SRQSEG {
+    fn pprint(&self, printer: &mut crate::Printer<T>) -> std::io::Result<()> {
         printer.object(Self::NAME, |p| {
             p.ufield("a")?.value(&self.a)?;
             p.ufield("b")?.value(&self.b)?;
@@ -426,8 +425,8 @@ pub struct SRF {
 }
 simple_obj!(SRF : 1, "SRF", a, c, b);
 
-impl PPrintable for SRF {
-    fn pprint(&self, printer: &mut crate::Printer) -> std::io::Result<()> {
+impl<T> PPrintable<T> for SRF {
+    fn pprint(&self, printer: &mut crate::Printer<T>) -> std::io::Result<()> {
         printer.object(Self::NAME, |p| {
             p.ufield("a")?.value(&self.a)?;
             p.ufield("b")?.value(&self.b)?;
@@ -443,8 +442,8 @@ pub struct SRENG {
 }
 simple_obj!(SRENG : 1, "SRENG", a);
 
-impl PPrintable for SRENG {
-    fn pprint(&self, printer: &mut crate::Printer) -> std::io::Result<()> {
+impl<T> PPrintable<T> for SRENG {
+    fn pprint(&self, printer: &mut crate::Printer<T>) -> std::io::Result<()> {
         printer.object(Self::NAME, |p| {
             p.ufield("a")?.value(&self.a)?;
 
@@ -463,8 +462,8 @@ pub struct SRGLITCH {
 }
 simple_obj!(SRGLITCH : 2, "SRGLITCH", a, b, n, cell_slimulation, imposters, glitches);
 
-impl PPrintable for SRGLITCH {
-    fn pprint(&self, printer: &mut crate::Printer) -> std::io::Result<()> {
+impl<T> PPrintable<T> for SRGLITCH {
+    fn pprint(&self, printer: &mut crate::Printer<T>) -> std::io::Result<()> {
         printer.object(Self::NAME, |p| {
             p.ufield("a")?.value(&self.a)?;
             p.ufield("b")?.value(&self.b)?;
@@ -484,8 +483,8 @@ pub struct SRGLITCH_TPD {
 }
 simple_obj!(SRGLITCH_TPD : 1, "SRGLITCH_TPD", a);
 
-impl PPrintable for SRGLITCH_TPD {
-    fn pprint(&self, printer: &mut crate::Printer) -> std::io::Result<()> {
+impl<T> PPrintable<T> for SRGLITCH_TPD {
+    fn pprint(&self, printer: &mut crate::Printer<T>) -> std::io::Result<()> {
         printer.object(Self::NAME, |p| {
             p.ufield("a")?.value(&self.a)?;
 
@@ -499,8 +498,8 @@ pub struct SRGLITCH_TS {
 }
 simple_obj!(SRGLITCH_TS : 1, "SRGLITCH_TS", a);
 
-impl PPrintable for SRGLITCH_TS {
-    fn pprint(&self, printer: &mut crate::Printer) -> std::io::Result<()> {
+impl<T> PPrintable<T> for SRGLITCH_TS {
+    fn pprint(&self, printer: &mut crate::Printer<T>) -> std::io::Result<()> {
         printer.object(Self::NAME, |p| {
             p.ufield("a")?.value(&self.a)?;
 
@@ -514,8 +513,8 @@ pub struct SRGLITCH_ID {
 }
 simple_obj!(SRGLITCH_ID : 1, "SRGLITCH_ID", a);
 
-impl PPrintable for SRGLITCH_ID {
-    fn pprint(&self, printer: &mut crate::Printer) -> std::io::Result<()> {
+impl<T> PPrintable<T> for SRGLITCH_ID {
+    fn pprint(&self, printer: &mut crate::Printer<T>) -> std::io::Result<()> {
         printer.object(Self::NAME, |p| {
             p.ufield("a")?.value(&self.a)?;
 
@@ -530,8 +529,8 @@ pub struct SRGLITCH_IP {
 }
 simple_obj!(SRGLITCH_IP : 1, "SRGLITCH_IP", a, b);
 
-impl PPrintable for SRGLITCH_IP {
-    fn pprint(&self, printer: &mut crate::Printer) -> std::io::Result<()> {
+impl<T> PPrintable<T> for SRGLITCH_IP {
+    fn pprint(&self, printer: &mut crate::Printer<T>) -> std::io::Result<()> {
         printer.object(Self::NAME, |p| {
             p.ufield("a")?.value(&self.a)?;
             p.ufield("b")?.value(&self.b)?;
@@ -546,8 +545,8 @@ pub struct SRGLITCH_ST {
 }
 simple_obj!(SRGLITCH_ST : 1, "SRGLITCH_ST", a);
 
-impl PPrintable for SRGLITCH_ST {
-    fn pprint(&self, printer: &mut crate::Printer) -> std::io::Result<()> {
+impl<T> PPrintable<T> for SRGLITCH_ST {
+    fn pprint(&self, printer: &mut crate::Printer<T>) -> std::io::Result<()> {
         printer.object(Self::NAME, |p| {
             p.ufield("a")?.value(&self.a)?;
 
@@ -575,8 +574,8 @@ pub struct SRGAME1 {
 
 simple_obj!(SRGAME1 : 12, "SRGAME", name_base, save_name, summary, world, player, ranch, unknown, actors, unknown2, srped, srga, srhd, srapp, srinstr);
 
-impl PPrintable for SRGAME1 {
-    fn pprint(&self, printer: &mut crate::Printer) -> std::io::Result<()> {
+impl<T> PPrintable<T> for SRGAME1 {
+    fn pprint(&self, printer: &mut crate::Printer<T>) -> std::io::Result<()> {
         printer.object(Self::NAME, |p| {
             p.field("Name base")?.value(&self.name_base)?;
             p.field("Save name")?.value(&self.save_name)?;
@@ -629,8 +628,8 @@ pub struct SRPL {
 }
 simple_obj!(SRPL : 0x0e, "SRPL", hp, energy, a, b, c, d, build, e, f, pos, facing, g, inv, mail, h, i, j, k, l, m, n, o, p, q, r, s, t, srdzr);
 
-impl PPrintable for SRPL {
-    fn pprint(&self, printer: &mut crate::Printer) -> std::io::Result<()> {
+impl<T> PPrintable<T> for SRPL {
+    fn pprint(&self, printer: &mut crate::Printer<T>) -> std::io::Result<()> {
         printer.object(Self::NAME, |p| {
             p.ufield("a")?.value(&self.a)?;
             p.ufield("b")?.value(&self.b)?;
@@ -673,8 +672,8 @@ pub struct SRMAIL {
 }
 simple_obj!(SRMAIL : 1, "SRMAIL", a, b, c);
 
-impl PPrintable for SRMAIL {
-    fn pprint(&self, printer: &mut crate::Printer) -> std::io::Result<()> {
+impl<T> PPrintable<T> for SRMAIL {
+    fn pprint(&self, printer: &mut crate::Printer<T>) -> std::io::Result<()> {
         printer.object(Self::NAME, |p| {
             p.ufield("a")?.value(&self.a)?;
             p.ufield("b")?.value(&self.b)?;
@@ -692,8 +691,8 @@ pub struct SRDZR {
 }
 simple_obj!(SRDZR : 1, "SRDZR", a, b);
 
-impl PPrintable for SRDZR {
-    fn pprint(&self, printer: &mut crate::Printer) -> std::io::Result<()> {
+impl<T> PPrintable<T> for SRDZR {
+    fn pprint(&self, printer: &mut crate::Printer<T>) -> std::io::Result<()> {
         printer.object(Self::NAME, |p| {
             p.ufield("a")?.value(&self.a)?;
             p.ufield("b")?.value(&self.b)?;
@@ -709,8 +708,8 @@ pub struct SRDZRSETTINGS {
 }
 simple_obj!(SRDZRSETTINGS : 1, "SRDZRSETTINGS", a);
 
-impl PPrintable for SRDZRSETTINGS {
-    fn pprint(&self, printer: &mut crate::Printer) -> std::io::Result<()> {
+impl<T> PPrintable<T> for SRDZRSETTINGS {
+    fn pprint(&self, printer: &mut crate::Printer<T>) -> std::io::Result<()> {
         printer.object(Self::NAME, |p| {
             p.ufield("a")?.value(&self.a)?;
 
@@ -727,8 +726,8 @@ pub struct SRRANCH {
 }
 simple_obj!(SRRANCH : 7, "SRRANCH", plots, doors, a, b);
 
-impl PPrintable for SRRANCH {
-    fn pprint(&self, printer: &mut crate::Printer) -> std::io::Result<()> {
+impl<T> PPrintable<T> for SRRANCH {
+    fn pprint(&self, printer: &mut crate::Printer<T>) -> std::io::Result<()> {
         printer.object(Self::NAME, |p| {
             p.ufield("plots")?.value(&self.plots)?;
             p.ufield("doors")?.value(&self.doors)?;
@@ -751,8 +750,8 @@ pub struct SRLP {
 }
 simple_obj!(SRLP : 8, "SRLP", a, name, upgrades, b, e, f);
 
-impl PPrintable for SRLP {
-    fn pprint(&self, printer: &mut crate::Printer) -> std::io::Result<()> {
+impl<T> PPrintable<T> for SRLP {
+    fn pprint(&self, printer: &mut crate::Printer<T>) -> std::io::Result<()> {
         printer.object(Self::NAME, |p| {
             p.ufield("a")?.value(&self.a)?;
             p.ufield("name")?.value(&self.name)?;
@@ -786,8 +785,8 @@ pub struct SRAD2 {
 }
 simple_obj!(SRAD2 : 9, "SRAD", pos, facing, index, unknown, actor_type, srsed, chick_timer, hen_timer, plort_expire, srrcd, ts, more_bytes);
 
-impl PPrintable for SRAD2 {
-    fn pprint(&self, printer: &mut crate::Printer) -> std::io::Result<()> {
+impl<T> PPrintable<T> for SRAD2 {
+    fn pprint(&self, printer: &mut crate::Printer<T>) -> std::io::Result<()> {
         printer.object(Self::NAME, |p| {
             p.ufield("pos")?.value(&self.pos)?;
             p.ufield("facing")?.value(&self.facing)?;
@@ -814,8 +813,8 @@ pub struct SRRCD {
 }
 simple_obj!(SRRCD, "SRRCD", condition, time);
 
-impl PPrintable for SRRCD {
-    fn pprint(&self, printer: &mut crate::Printer) -> std::io::Result<()> {
+impl<T> PPrintable<T> for SRRCD {
+    fn pprint(&self, printer: &mut crate::Printer<T>) -> std::io::Result<()> {
         printer.object(Self::NAME, |p| {
             p.ufield("condition")?.value(&self.condition)?;
             p.ufield("time")?.value(&self.time)?;
@@ -832,8 +831,8 @@ pub struct SRSE {
 }
 simple_obj!(SRSE, "SRSE", unknown, ts);
 
-impl PPrintable for SRSE {
-    fn pprint(&self, printer: &mut crate::Printer) -> std::io::Result<()> {
+impl<T> PPrintable<T> for SRSE {
+    fn pprint(&self, printer: &mut crate::Printer<T>) -> std::io::Result<()> {
         printer.object(Self::NAME, |p| {
             p.ufield("unknown")?.value(&self.unknown)?;
             p.ufield("ts")?.value(&self.ts)?;
@@ -851,8 +850,8 @@ pub struct SRPED {
 }
 simple_obj!(SRPED : 3, "SRPED", a, index, index2, b);
 
-impl PPrintable for SRPED {
-    fn pprint(&self, printer: &mut crate::Printer) -> std::io::Result<()> {
+impl<T> PPrintable<T> for SRPED {
+    fn pprint(&self, printer: &mut crate::Printer<T>) -> std::io::Result<()> {
         printer.object(Self::NAME, |p| {
             p.ufield("a")?.value(&self.a)?;
             p.ufield("index")?.value(&self.index)?;
@@ -873,8 +872,8 @@ pub struct SRGA {
 }
 simple_obj!(SRGA : 3, "SRGA", a, b, c, d);
 
-impl PPrintable for SRGA {
-    fn pprint(&self, printer: &mut crate::Printer) -> std::io::Result<()> {
+impl<T> PPrintable<T> for SRGA {
+    fn pprint(&self, printer: &mut crate::Printer<T>) -> std::io::Result<()> {
         printer.object(Self::NAME, |p| {
             p.ufield("a")?.value(&self.a)?;
             p.ufield("b")?.value(&self.b)?;
@@ -891,8 +890,8 @@ pub struct SRHD {
 }
 simple_obj!(SRHD : 2, "SRHD", unknown);
 
-impl PPrintable for SRHD {
-    fn pprint(&self, printer: &mut crate::Printer) -> std::io::Result<()> {
+impl<T> PPrintable<T> for SRHD {
+    fn pprint(&self, printer: &mut crate::Printer<T>) -> std::io::Result<()> {
         printer.object(Self::NAME, |p| {
             p.ufield("unknown")?.value(&self.unknown)?;
 
@@ -907,8 +906,8 @@ pub struct SRAPP {
 }
 simple_obj!(SRAPP, "SRAPP", item_map, unknown);
 
-impl PPrintable for SRAPP {
-    fn pprint(&self, printer: &mut crate::Printer) -> std::io::Result<()> {
+impl<T> PPrintable<T> for SRAPP {
+    fn pprint(&self, printer: &mut crate::Printer<T>) -> std::io::Result<()> {
         printer.object(Self::NAME, |p| {
             p.ufield("item_map")?.value(&self.item_map)?;
             p.ufield("unknown")?.value(&self.unknown)?;
@@ -923,8 +922,8 @@ pub struct SRINSTR {
 }
 simple_obj!(SRINSTR, "SRINSTR", unknown);
 
-impl PPrintable for SRINSTR {
-    fn pprint(&self, printer: &mut crate::Printer) -> std::io::Result<()> {
+impl<T> PPrintable<T> for SRINSTR {
+    fn pprint(&self, printer: &mut crate::Printer<T>) -> std::io::Result<()> {
         printer.object(Self::NAME, |p| {
             p.ufield("unknown")?.value(&self.unknown)?;
 

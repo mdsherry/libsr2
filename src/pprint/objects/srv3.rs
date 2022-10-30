@@ -1,10 +1,10 @@
 use crate::{
     pprint::{PPrintable, Printer},
-    SRV3,
+    SRV3
 };
 
-impl PPrintable for SRV3 {
-    fn pprint(&self, printer: &mut Printer) -> std::io::Result<()> {
+impl<T> PPrintable<T> for SRV3 {
+    fn pprint(&self, printer: &mut Printer<T>) -> std::io::Result<()> {
         printer.print(&format!("{self:?}"))
     }
 }

@@ -3,16 +3,16 @@ pub use printer::*;
 mod objects;
 mod primitives;
 
-pub trait PPrintable {
-    fn pprint(&self, printer: &mut Printer) -> std::io::Result<()>;
+pub trait PPrintable<T> {
+    fn pprint(&self, printer: &mut Printer<T>) -> std::io::Result<()>;
 }
-impl<P: PPrintable> PPrintable for &P {
-    fn pprint(&self, printer: &mut Printer) -> std::io::Result<()> {
-        P::pprint(&self, printer)
+impl<T, P: PPrintable<T>> PPrintable<T> for &P {
+    fn pprint(&self, printer: &mut Printer<T>) -> std::io::Result<()> {
+        P::pprint(self, printer)
     }
 }
-impl<A: PPrintable, B: PPrintable> PPrintable for (A, B) {
-    fn pprint(&self, printer: &mut Printer) -> std::io::Result<()> {
+impl<T, A: PPrintable<T>, B: PPrintable<T>> PPrintable<T> for (A, B) {
+    fn pprint(&self, printer: &mut Printer<T>) -> std::io::Result<()> {
         printer.print("(")?;
         self.0.pprint(printer)?;
         printer.print(", ")?;
@@ -21,15 +21,15 @@ impl<A: PPrintable, B: PPrintable> PPrintable for (A, B) {
         Ok(())
     }
 }
-impl<P: PPrintable> PPrintable for Vec<P> {
-    fn pprint(&self, printer: &mut Printer) -> std::io::Result<()> {
+impl<T, P: PPrintable<T>> PPrintable<T> for Vec<P> {
+    fn pprint(&self, printer: &mut Printer<T>) -> std::io::Result<()> {
         printer.list(self, |p, item| item.pprint(p))
     }
 }
 
 
-impl<P: PPrintable> PPrintable for Option<P> {
-    fn pprint(&self, printer: &mut Printer) -> std::io::Result<()> {
+impl<T, P: PPrintable<T>> PPrintable<T> for Option<P> {
+    fn pprint(&self, printer: &mut Printer<T>) -> std::io::Result<()> {
         if let Some(value) = self {
             value.pprint(printer)?;
         } else {

@@ -7,7 +7,7 @@ use super::Obj;
 use nom::IResult;
 use std::{fmt::Debug, io::Write};
 
-#[derive(Debug, Default, Clone, PartialEq)]
+#[derive(Debug, Default, Clone, PartialEq, Eq)]
 pub struct StringPair(pub String, pub String);
 
 impl Obj for StringPair {

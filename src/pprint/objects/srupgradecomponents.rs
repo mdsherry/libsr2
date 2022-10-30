@@ -1,11 +1,11 @@
 use crate::{
     objects::Obj,
     pprint::{PPrintable, Printer},
-    SRUPGRADECOMPONENTS,
+    SRUPGRADECOMPONENTS, SRGAME,
 };
 
-impl PPrintable for SRUPGRADECOMPONENTS {
-    fn pprint(&self, printer: &mut Printer) -> std::io::Result<()> {
+impl PPrintable<SRGAME> for SRUPGRADECOMPONENTS {
+    fn pprint(&self, printer: &mut Printer<SRGAME>) -> std::io::Result<()> {
         printer.object(Self::NAME, |p| p.ufield("bytes")?.value(&self.bytes))
     }
 }

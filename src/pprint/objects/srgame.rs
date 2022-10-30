@@ -4,8 +4,8 @@ use crate::{
     SRGAME,
 };
 
-impl PPrintable for SRGAME {
-    fn pprint(&self, printer: &mut Printer) -> std::io::Result<()> {
+impl PPrintable<SRGAME> for SRGAME {
+    fn pprint(&self, printer: &mut Printer<SRGAME>) -> std::io::Result<()> {
         printer.object(Self::NAME, |p| {
             p.field("Player")?.value(&self.player)?;
             p.field("Ranch")?.value(&self.ranch)?;

@@ -1,10 +1,10 @@
 use crate::{
     pprint::{PPrintable, Printer},
-    SRAD, SRAD1, SRAD2,
+    SRAD, SRAD1, SRAD2, SRGAME,
 };
 
-impl PPrintable for SRAD {
-    fn pprint(&self, printer: &mut Printer) -> std::io::Result<()> {
+impl PPrintable<SRGAME> for SRAD {
+    fn pprint(&self, printer: &mut Printer<SRGAME>) -> std::io::Result<()> {
         match self {
             SRAD::V1(v1) => v1.pprint(printer),
             SRAD::V2(v2) => v2.pprint(printer),
@@ -12,8 +12,8 @@ impl PPrintable for SRAD {
     }
 }
 
-impl PPrintable for SRAD1 {
-    fn pprint(&self, printer: &mut Printer) -> std::io::Result<()> {
+impl PPrintable<SRGAME> for SRAD1 {
+    fn pprint(&self, printer: &mut Printer<SRGAME>) -> std::io::Result<()> {
         printer.object("SRAD::V1", |p| {
             p.field("Item ID")?.value(self.item_id)?;
             p.field("Count")?.value(self.count)?;
@@ -23,8 +23,8 @@ impl PPrintable for SRAD1 {
     }
 }
 
-impl PPrintable for SRAD2 {
-    fn pprint(&self, printer: &mut Printer) -> std::io::Result<()> {
+impl PPrintable<SRGAME> for SRAD2 {
+    fn pprint(&self, printer: &mut Printer<SRGAME>) -> std::io::Result<()> {
         printer.object("SRAD::V2", |p| {
             p.field("Pos")?.value(&self.pos)?;
             p.field("Facing")?.value(&self.facing)?;

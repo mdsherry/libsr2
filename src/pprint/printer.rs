@@ -4,19 +4,47 @@ use std::{
     path::Path,
 };
 
-use crate::SRGAME;
+use crate::{SRGAME};
 
 use super::PPrintable;
 
-pub struct Printer<'a> {
+pub struct Printer<'a, T> {
     margin: usize,
-    game: &'a SRGAME,
+    game: &'a T,
     out: Box<dyn io::Write>,
     new_line: bool,
     compare_mode: bool,
 }
 
-impl<'a> Printer<'a> {
+impl <'a> Printer<'a, SRGAME> {
+    pub fn new(game: &'a SRGAME) -> Self {
+        Printer {
+            margin: 0,
+            game,
+            new_line: true,
+            out: Box::new(BufWriter::new(io::stdout().lock())),
+            compare_mode: false,
+        }
+    }
+}
+
+static V1_CTX: () = ();
+
+impl <'a> Printer<'a, ()> {
+    pub fn new_v1() -> Self {
+        Printer {
+            margin: 0,
+            game: &V1_CTX,
+            new_line: true,
+            out: Box::new(BufWriter::new(io::stdout().lock())),
+            compare_mode: false,
+        }
+    }
+}
+
+
+
+impl<'a, T> Printer<'a, T> {
     pub fn with_filename(mut self, outfile: &Path) -> io::Result<Self> {
         self.out = Box::new(BufWriter::new(File::create(outfile)?));
         Ok(self)
@@ -27,16 +55,8 @@ impl<'a> Printer<'a> {
     pub fn compare_mode(&self) -> bool {
         self.compare_mode
     }
-    pub fn new(game: &'a SRGAME) -> Self {
-        Printer {
-            margin: 0,
-            game,
-            new_line: true,
-            out: Box::new(BufWriter::new(io::stdout().lock())),
-            compare_mode: false,
-        }
-    }
-    pub fn game(&self) -> &SRGAME {
+    
+    pub fn game(&self) -> &T {
         self.game
     }
     fn ensure_nl(&mut self) -> io::Result<()> {
@@ -50,6 +70,10 @@ impl<'a> Printer<'a> {
         self.ensure_nl()?;
         self.out.write_all(text.as_bytes())?;
         Ok(())
+    }
+    
+    pub fn write_fmt(&mut self, args: std::fmt::Arguments<'a>) -> io::Result<()> {
+        self.out.write_fmt(args)
     }
 
     pub fn nl(&mut self) -> io::Result<()> {
@@ -138,7 +162,7 @@ impl<'a> Printer<'a> {
         write!(self.out, "?{name}?: ")?;
         Ok(self)
     }
-    pub fn value<D: PPrintable>(&mut self, value: D) -> io::Result<()> {
+    pub fn value<D: PPrintable<T>>(&mut self, value: D) -> io::Result<()> {
         self.ensure_nl()?;
         value.pprint(self)?;
         Ok(())

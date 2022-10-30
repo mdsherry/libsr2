@@ -1,11 +1,11 @@
 use crate::{
     objects::Obj,
     pprint::{PPrintable, Printer},
-    SRGAMEICONINDEX,
+    SRGAMEICONINDEX, SRGAME,
 };
 
-impl PPrintable for SRGAMEICONINDEX {
-    fn pprint(&self, printer: &mut Printer) -> std::io::Result<()> {
+impl PPrintable<SRGAME> for SRGAMEICONINDEX {
+    fn pprint(&self, printer: &mut Printer<SRGAME>) -> std::io::Result<()> {
         printer.object(Self::NAME, |p| {
             p.field("Game icons")?.value(&self.game_icons)
         })
