@@ -3,7 +3,7 @@ use std::io::Write;
 use nom::{combinator::map_res, IResult, error::{VerboseError, ContextError}};
 
 use crate::{
-    primitives::{InGameTime, ItemId, PlantId, SceneGroupId, TimeSinceYear1, VecMap, WindowsTime},
+    primitives::{InGameTime, ItemId, PlantId, SceneGroupId, TimeSinceYear1, VecMap, WindowsTime, UpgradeComponentId},
     util::s2a,
 };
 
@@ -219,4 +219,5 @@ macro_rules! parse_newtype {
 
 parse_newtype!(SceneGroupId, i32);
 parse_newtype!(ItemId, i32);
+parse_newtype!(UpgradeComponentId, i32);
 parse_newtype!(PlantId, i32);

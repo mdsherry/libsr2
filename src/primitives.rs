@@ -14,6 +14,10 @@ pub struct WindowsTime(pub i64);
 pub struct ItemId(pub usize);
 
 #[derive(Debug, Default, Clone, Copy, PartialEq, Eq, Hash)]
+pub struct UpgradeComponentId(pub usize);
+
+
+#[derive(Debug, Default, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct SceneGroupId(pub usize);
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]

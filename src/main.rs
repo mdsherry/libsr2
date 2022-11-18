@@ -125,7 +125,7 @@ fn err_dump(data: &[u8], e: VerboseError<&[u8]>) {
 
 fn load_data(path: &Path) -> color_eyre::eyre::Result<SRGAME> {
     let data = std::fs::read(path)?;
-    let mut printer = Printer::new_v1().with_filename("testout.txt".as_ref())?;
+    // let mut printer = Printer::new_v1().with_filename("testout.txt".as_ref())?;
 
     // for i in 0..data.len() {
     //     if data[i..].starts_with(&[0x04, 0x53, 0x52, 0x50, 0x47]) {
@@ -137,16 +137,15 @@ fn load_data(path: &Path) -> color_eyre::eyre::Result<SRGAME> {
 
     //     }
     // }
-    let (_, game) = SRGAME1::parse(&data)
+    let (_, game) = SRGAME::parse(&data)
         .finish()
         .map_err(|e| err_dump(&data, e))
         .unwrap();
 
-    // let mut printer = Printer::new(&v2game).with_filename("testout.txt".as_ref())?;
+    let mut printer = Printer::new(&game).with_filename("testout.txt".as_ref())?;
 
     game.pprint(&mut printer)?;
-    // Ok(game)
-    unimplemented!()
+    Ok(game)
 }
 
 fn main() -> color_eyre::eyre::Result<()> {

@@ -6,6 +6,6 @@ use crate::{
 
 impl PPrintable<SRGAME> for SRUPGRADECOMPONENTS {
     fn pprint(&self, printer: &mut Printer<SRGAME>) -> std::io::Result<()> {
-        printer.object(Self::NAME, |p| p.ufield("bytes")?.value(&self.bytes))
+        printer.object(Self::NAME, |p| p.ufield("components")?.value(&self.components))
     }
 }

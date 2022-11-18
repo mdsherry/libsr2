@@ -3,7 +3,7 @@ use std::io;
 use chrono::{prelude::*, Duration};
 
 use crate::{primitives::{
-    InGameTime, ItemId, PlantId, SceneGroupId, TimeSinceYear1, VecMap, WindowsTime,
+    InGameTime, ItemId, PlantId, SceneGroupId, TimeSinceYear1, VecMap, WindowsTime, UpgradeComponentId,
 }, SRGAME};
 
 use super::{PPrintable, Printer};
@@ -70,6 +70,17 @@ impl PPrintable<SRGAME> for ItemId {
         printer.print(&s)
     }
 }
+impl PPrintable<SRGAME> for UpgradeComponentId {
+    fn pprint(&self, printer: &mut Printer<SRGAME>) -> io::Result<()> {
+        let s = if self.0 != usize::MAX {
+            printer.game().uc_index.upgrade_components[self.0].clone()
+        } else {
+            "<empty>".to_string()
+        };
+        printer.print(&s)
+    }
+}
+
 
 impl<T> PPrintable<T> for InGameTime {
     fn pprint(&self, printer: &mut Printer<T>) -> io::Result<()> {

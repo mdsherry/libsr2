@@ -299,9 +299,7 @@ Yes, at this point I could have just cheated my way past the bug and stopped.
 
 | Name        |Type    | Notes |
 |-------------------------|---------|----|
-| ??? | 4 bytes | |
-
-In my most advanced game, I've spent all my components. In my other games, I haven't collected any yet. As such, I don't know what this looks like. (Is it 4 bools?)
+| Owned components | `u32[UpgradeComponentId]` | A count of how many of each upgrade component the player has |
 
 ### `SRDZR`
 
